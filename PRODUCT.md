@@ -36,15 +36,15 @@ The site is a public, mobile-first portfolio that must remain easy to scan on a 
 ## Brand Commitments
 
 - Name: Adrian David B. Padolina.
-- Existing profile photo and approved project screenshots.
+- Approved project screenshots.
 - Professional, approachable, security-minded tone.
 
 ## Evidence on Hand
 
-- Profile and project facts documented in `content-draft.md`.
-- Profile photo: `images/adrian.png`.
+- Project and profile facts retained only in this product record.
+- Privacy-safe initials monogram instead of a personal portrait.
 - Project screenshots for SafeDorm+, Flow, and TechTown.inc under `images/`.
-- Verified email: davebarrerapadolina@gmail.com.
+- No direct email address or personal social profile in the public site.
 - Verified GitHub: https://github.com/Ezekiel911.
 
 ## Product Principles

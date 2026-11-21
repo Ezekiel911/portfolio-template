@@ -39,4 +39,6 @@ This repository is designed for GitHub Pages:
 
 ## Content
 
-Verified project and profile information is recorded in `PRODUCT.md` and `content-draft.md`. Personal and project claims should remain limited to verifiable evidence.
+The public profile uses a privacy-safe monogram instead of a personal portrait and does not publish a direct email address or personal social profile.
+
+Verified project and profile information is recorded in `PRODUCT.md`. Personal and project claims should remain limited to verifiable evidence.
