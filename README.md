@@ -45,5 +45,5 @@ This repository is designed for GitHub Pages:
 2. Add only verified education, skills, goals, and project outcomes.
 3. Replace project names and the neutral screenshots.
 4. Remove or replace every `#` link.
-5. Use `PORTFOLIO_PROMPT.md` when asking an AI assistant to update the site.
+5. Use `PORTFOLIO_SETUP_PROMPT.md` when asking an AI assistant to update the site.
 6. Scan the repository for emails, phone numbers, addresses, IDs, private usernames, and personal photos before publishing.

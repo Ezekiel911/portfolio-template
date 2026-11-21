@@ -468,10 +468,11 @@ function handleAvailabilityVisibilityChange() { // Respond to native document vi
   } // Finish hidden-tab handling.
   startAvailabilityUpdates(); // Recompute immediately and schedule the next minute.
 } // Finish visibility handling.
-// Start the clock and state immediately after the card markup is available.
-startAvailabilityUpdates(); // Replace the honest pre-render copy with the current schedule state.
-// Pause and resume status work with the browser's native visibility signal.
-document.addEventListener("visibilitychange", handleAvailabilityVisibilityChange); // Keep timers and dot motion inactive in hidden tabs.
+// Leave the template status card unconfigured until an approved schedule exists.
+if (availabilityState?.textContent !== "Unconfigured") {
+  startAvailabilityUpdates();
+  document.addEventListener("visibilitychange", handleAvailabilityVisibilityChange);
+}
 
 function splitHeroHeadline(heading) {
   const fullText = heading.textContent.replace(/\s+/g, " ").trim();
@@ -851,8 +852,8 @@ function initTextAnimations() {
   const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
   // Use exact fragments from the approved content draft; the complete tagline stays screen-reader-only.
   const roles = [
-    "I’m an IT student.",
-    "I’m pursuing a career in cybersecurity.",
+    "I build useful digital experiences.",
+    "I’m ready to share my work.",
     "I solve problems.",
     "I build secure systems.",
     "I troubleshoot technical issues.",

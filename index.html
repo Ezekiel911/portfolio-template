@@ -1577,15 +1577,7 @@
       </nav>
     </header>
 
-    <!-- Keep public social links limited to a professional identity channel. -->
-    <nav class="intro-piece side-rail side-rail--social flex-col items-center gap-1" aria-label="Social links" data-intro-step="rails">
-      <a class="side-rail-link inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:text-accent" href="#" aria-label="Portfolio repository" data-tooltip="Portfolio repository">
-        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.24-5.1 5.52.4.35.75 1.03.75 2.08V22c0 .29.2.63.76.52A11.1 11.1 0 0 0 12 .9Z"></path>
-        </svg>
-      </a>
-      <span class="side-rail-line mt-2 h-20 w-px bg-muted/70" aria-hidden="true"></span>
-    </nav>
+    <!-- Social rail intentionally omitted until a user supplies approved public links. -->
 
     <!-- The existing section observer also updates these native fragment links. -->
     <nav class="intro-piece side-rail side-rail--index flex-col gap-1" aria-label="Section index" data-intro-step="rails">
@@ -1639,9 +1631,8 @@
           <!-- Compact proof chips use only verified project and tool facts. -->
           <ul class="intro-piece mt-5 flex flex-wrap gap-1.5 text-xs font-semibold text-copy" aria-label="Projects and tools" data-intro-step="actions">
             <li class="rounded-full border border-line-strong bg-surface px-2 py-1">3 projects</li>
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Java · PHP</li>
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Flutter · Firebase</li>
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">HTML · CSS · JavaScript · Tailwind CSS</li>
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Add verified stack</li>
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Add verified tools</li>
           </ul>
         </div>
 
@@ -1667,16 +1658,16 @@
             >
               <div class="availability-header flex items-center justify-between gap-3">
                 <h2 id="availability-title" class="font-heading text-base font-semibold text-heading dark:text-heading">
-                  Availability
+                  Template status
                 </h2>
                 <span id="availability-badge" class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold" data-state="away">
                   <span id="availability-dot" class="availability-dot inline-flex h-2.5 w-2.5 rounded-full" data-state="away" aria-hidden="true"></span>
-                  <span id="availability-state">—</span>
+                  <span id="availability-state">Unconfigured</span>
                 </span>
               </div>
               <div class="availability-copy mt-3">
-                <p id="status-message" class="text-sm font-medium leading-6 text-text dark:text-text" role="status" aria-live="polite" aria-atomic="true"></p>
-                <p id="status-relative" class="mt-1 min-h-6 text-sm leading-6 text-muted dark:text-copy"></p>
+                <p id="status-message" class="text-sm font-medium leading-6 text-text dark:text-text" role="status" aria-live="polite" aria-atomic="true">Add approved availability details.</p>
+                <p id="status-relative" class="mt-1 min-h-6 text-sm leading-6 text-muted dark:text-copy">Not a live availability claim.</p>
               </div>
               <div class="mt-4" aria-hidden="true">
                 <div id="availability-track" class="availability-track rounded-full" data-off-today="true">
@@ -1684,9 +1675,9 @@
                   <span id="availability-now" class="availability-now"></span>
                 </div>
               </div>
-              <p id="availability-note" class="availability-note pt-1 text-xs font-medium text-muted dark:text-copy"></p>
+              <p id="availability-note" class="availability-note pt-1 text-xs font-medium text-muted dark:text-copy">Customize or remove this card.</p>
               <div class="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3 text-xs text-muted dark:border-line dark:text-copy">
-                <span id="availability-zone">My time</span>
+                <span id="availability-zone">Template zone</span>
                 <time id="availability-time" class="shrink-0 font-mono">--:--</time>
               </div>
               <noscript>
@@ -1735,7 +1726,7 @@
               Skills &amp; technologies
             </h2>
             <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
-              Security topics, project technologies, and people-focused skills.
+              Add verified project technologies and people-focused skills.
             </p>
           </div>
           <button
@@ -1763,95 +1754,29 @@
               data-autoplay-track
               data-autoplay-direction="right"
             >
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="1 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">J</span>
-              <h3 class="text-xl font-bold">Java</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Built a café ordering app using Java.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Programming</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="1 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Add a verified skill and a specific, truthful example.</p>
             </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="2 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">PHP</span>
-              <h3 class="text-xl font-bold">PHP</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a specific project example.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Backend</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="2 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Do not list a tool you have not used.</p>
             </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="3 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">HTML</span>
-              <h3 class="text-xl font-bold">HTML</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a skill you can demonstrate.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Markup</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="3 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Add evidence from a project or real experience.</p>
             </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="4 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CSS</span>
-              <h3 class="text-xl font-bold">CSS</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a real styling or design contribution.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Styling</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="4 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Keep proficiency claims accurate.</p>
             </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="5 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">JS</span>
-              <h3 class="text-xl font-bold">JavaScript</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a verified interaction or feature.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Scripting</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="5 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Use a project, class, or work example.</p>
             </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="6 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TW</span>
-              <h3 class="text-xl font-bold">Tailwind CSS</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with an actual framework or library use.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">CSS framework</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="7 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">D/F</span>
-              <h3 class="text-xl font-bold">Dart / Flutter</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a verified mobile or desktop project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Mobile</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="8 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">FB</span>
-              <h3 class="text-xl font-bold">Firebase</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Replace with a verified backend or cloud use.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Backend / cloud</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="9 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">G</span>
-              <h3 class="text-xl font-bold">Git</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Listed as a technical tool; the draft does not name a specific project use.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Version control</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="10 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CY</span>
-              <h3 class="text-xl font-bold">Cybersecurity</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="11 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">NS</span>
-              <h3 class="text-xl font-bold">Network security</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="12 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TA</span>
-              <h3 class="text-xl font-bold">Threat analysis</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="13 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">SH</span>
-              <h3 class="text-xl font-bold">System hardening</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="14 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">SA</span>
-              <h3 class="text-xl font-bold">Systems administration</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
-            </article>
-            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="15 of 15">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">IT</span>
-              <h3 class="text-xl font-bold">IT infrastructure</h3>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="6 of 6">
+              <h3 class="text-xl font-bold">Add skill</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Remove this card if you need fewer skills.</p>
             </article>
             </div>
           </div>
@@ -1872,40 +1797,28 @@
             data-autoplay-direction="left"
           >
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="1 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TS</span>
-              <h4 class="text-xl font-bold">Troubleshooting</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Investigating technical issues to find a way forward.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Add a skill you have demonstrated through real work or study.</p>
             </article>
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="2 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">PD</span>
-              <h4 class="text-xl font-bold">Problem diagnosis</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Identifying the source of a problem before resolving it.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Keep examples specific and accurate.</p>
             </article>
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="3 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">IR</span>
-              <h4 class="text-xl font-bold">Technical issue resolution</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Working through technical issues toward a resolution.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Use evidence instead of broad claims.</p>
             </article>
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="4 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CS</span>
-              <h4 class="text-xl font-bold">Customer service</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Helping customers with a clear and supportive approach.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Service</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Connect the skill to a real situation.</p>
             </article>
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="5 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">S</span>
-              <h4 class="text-xl font-bold">Support</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Providing assistance to people who need help.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Service</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Remove this card if it is not relevant.</p>
             </article>
             <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="6 of 6">
-              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CR</span>
-              <h4 class="text-xl font-bold">Client relationship management</h4>
-              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Building and maintaining positive client relationships.</p>
-              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Communication</span>
+              <h4 class="text-xl font-bold">Add people skill</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Keep all public skill claims approved.</p>
             </article>
           </div>
         </div>
@@ -1920,10 +1833,10 @@
         <div class="mb-8 max-w-2xl">
           <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Selected work</p>
           <h2 id="projects-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
-            Three projects I’ve built.
+            Three project placeholders.
           </h2>
           <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
-            Web and mobile work across dormitory management, planning, and product pages.
+            Replace these placeholders with approved web or mobile projects.
           </p>
         </div>
 
@@ -1982,18 +1895,8 @@
               Replace this description with a two or three sentence overview of a real project, the problem it addressed, and the role you played.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project One tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">PHP</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">HTML</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">CSS</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">JavaScript</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Tailwind CSS</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Chart.js</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Lucide</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Dart</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Flutter</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Authentication</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Cloud Firestore</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Cloud integration</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -2030,15 +1933,8 @@
               Replace this description with a concise explanation of a real project and the technologies used to build it.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project Two tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Dart</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Flutter</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Authentication</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Cloud Firestore</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Storage</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Provider</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">sqflite</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Local notifications</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Home widgets</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -2074,9 +1970,8 @@
               Replace this description with a real responsive project, including what it demonstrates and what you built.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project Three tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">HTML</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">JavaScript</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Tailwind CSS</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -2096,7 +1991,7 @@
             Learning by doing.
           </h2>
           <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
-            My degree and the experience and learning goals I’m working toward.
+            Add verified education, experience, career goals, and learning goals.
           </p>
         </div>
 
@@ -2112,7 +2007,7 @@
             <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
             <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">CURRENT · CAREER GOAL</p>
-              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">IT Support Internship</h3>
+              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Career goal</h3>
               <p class="mt-2 leading-7 text-text dark:text-copy">
                 Replace this with a real, current career goal or opportunity you are seeking.
               </p>
@@ -2122,9 +2017,9 @@
             <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
             <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">PLANNED · LEARNING GOALS</p>
-              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Seminars &amp; certification goals</h3>
+              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Learning goals</h3>
               <p class="mt-2 leading-7 text-text dark:text-copy">
-                Replace this with future learning goals only. Clearly mark training or certifications that are still planned rather than earned.
+                Replace this with future learning goals only. Clearly mark planned training or credentials rather than earned ones.
               </p>
             </article>
           </li>
@@ -2139,10 +2034,10 @@
         <div class="mb-10 max-w-2xl">
           <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Contact</p>
           <h2 id="contact-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
-            Let’s build something useful.
+            Add your approved contact section.
           </h2>
           <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
-            Have a campus or community problem in mind? I’d be glad to connect.
+            Publish only links and contact channels you deliberately approve.
           </p>
         </div>
 
@@ -2153,12 +2048,7 @@
               Replace this area with links you have deliberately chosen to publish.
             </p>
             <ul class="mt-6 space-y-3">
-              <li>
-                <p class="min-h-12 rounded-xl border border-line px-4 py-3 font-semibold text-text dark:border-line dark:text-text">
-                  GitHub:
-                  <a class="text-accent underline-offset-4 hover:underline" href="#" target="_self">Add your public profile</a>
-                </p>
-              </li>
+              <li class="min-h-12 rounded-xl border border-line px-4 py-3 font-semibold text-text dark:border-line dark:text-text">No public profile has been approved yet.</li>
             </ul>
           </aside>
         </div>
