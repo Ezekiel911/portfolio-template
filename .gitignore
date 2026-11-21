@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+.impeccable/config.local.json
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/critique/
+*.log
+.agents/
+.claude/
+.codex/
+.vscode/
+.mcp.json
+skills-lock.json

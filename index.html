@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Adrian David B. Padolina is an IT student passionate about cybersecurity, troubleshooting, and building web and mobile projects."
+    />
+    <meta property="og:title" content="Adrian David B. Padolina | IT Student" />
+    <meta property="og:description" content="Cybersecurity, IT support, and web and mobile projects." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="images/adrian.png" />
+    <meta name="theme-color" content="#0B1220" />
+    <title>Adrian David B. Padolina | IT Student</title>
+
+    <!-- Start with the saved appearance before stylesheets paint. -->
+    <script>
+      // Use the saved light choice; every other case keeps the dark default.
+      try {
+        // Read the stored theme before loading Tailwind and page styles.
+        const savedTheme = localStorage.getItem("theme");
+        // Apply the dark class only for dark mode or the first visit.
+        document.documentElement.classList.toggle("dark", savedTheme !== "light");
+        // Match the browser chrome to the selected page background immediately.
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", savedTheme === "light" ? "#F4F7FA" : "#0B1220");
+      } catch (error) {
+        // Keep dark mode if storage is blocked, and make the fallback visible in the console.
+        document.documentElement.classList.add("dark");
+        // Keep the browser chrome on the same dark default after a storage failure.
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#0B1220");
+        console.warn("Theme preference is unavailable; using dark mode.", error);
+      }
+
+      function setPortfolioIntroPrepaintState() { // Decide before first paint whether the decorative intro may appear.
+        const root = document.documentElement; // Keep the existing root class as the shared motion switch.
+        root.classList.add("js"); // Let the existing no-JavaScript-safe reveal rules know scripts are available.
+        const navigationEntry = performance.getEntriesByType("navigation")[0]; // Detect browser history traversals before painting.
+        const isReload = navigationEntry?.type === "reload"; // Let an explicit browser reload replay the short boot sequence.
+        const reloadHasFragment = isReload && Boolean(location.hash); // Detect section URLs preserved by the browser's reload action.
+        if (reloadHasFragment) { // Start a fragment reload at the hero instead of preserving the previous section position.
+          history.scrollRestoration = "manual"; // Prevent Chrome from restoring the old scroll offset after the fragment is cleared.
+          history.replaceState(history.state, "", `${location.pathname}${location.search}`); // Clear the auto-updated section fragment from the address.
+          root.classList.add("intro-reload-top"); // Keep the section tracker from immediately restoring a fragment for the hero.
+          window.scrollTo(0, 0); // Move to the start immediately when layout is available.
+          document.addEventListener("DOMContentLoaded", () => window.scrollTo(0, 0), { once: true }); // Reapply at DOM readiness if Chrome restores scroll after parsing.
+        } // Finish the reload-from-section reset.
+        const shouldSkip = (!isReload && Boolean(location.hash)) // Keep direct fragment links focused on their requested section, but replay on reload.
+          || navigationEntry?.type === "back_forward" // Avoid replaying the intro when navigating through history.
+          || window.matchMedia("(prefers-reduced-motion: reduce)").matches; // Skip the intro for reduced-motion visitors.
+        if (shouldSkip) { // Keep skipped visits in their final visible state.
+          root.classList.add("intro-done"); // Let the existing page render without the overlay.
+          return; // Do not access session storage for an ineligible intro.
+        } // Finish early skip handling.
+        try { // Treat blocked storage as a reason to skip, not an error page.
+          if (!isReload && sessionStorage.getItem("portfolio-intro-seen") === "true") { // Skip same-tab revisits but allow an explicit reload to replay.
+            root.classList.add("intro-done"); // Keep repeat visits immediately usable.
+            return; // Do not restart an intro already seen in this session.
+          } // Finish the repeat-visit check.
+          sessionStorage.setItem("portfolio-intro-seen", "true"); // Record the visit before starting the intro.
+        } catch (error) { // Browsers may block session storage for privacy or policy reasons.
+          root.classList.add("intro-done"); // Fail open to the complete portfolio.
+          console.warn("Portfolio intro skipped because session storage is unavailable.", error); // Make the expected storage restriction visible for diagnosis.
+          return; // Do not show an intro whose once-per-session behavior cannot be guaranteed.
+        } // Finish safe session storage handling.
+        root.classList.add("intro-pending"); // Enable the CSS-covered overlay before any page paint.
+      } // Finish the synchronous prepaint decision.
+
+      setPortfolioIntroPrepaintState(); // Run the eligibility check before the page styles and content paint.
+    </script>
+    <style>
+      html {
+        color-scheme: light;
+      }
+
+      html.dark {
+        color-scheme: dark;
+      }
+
+      .intro-overlay {
+        align-items: center;
+        animation: intro-overlay-failsafe 3s linear 1 both;
+        background: var(--page, Canvas);
+        color: var(--heading, CanvasText);
+        display: none;
+        inset: 0;
+        justify-content: center;
+        opacity: 1;
+        padding: 1.5rem;
+        pointer-events: none;
+        position: fixed;
+        transform: translateY(0);
+        z-index: 1000;
+      }
+
+      html.js.intro-pending .intro-overlay {
+        display: flex;
+      }
+
+      .intro-lines {
+        display: grid;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.875rem;
+        font-weight: 600;
+        gap: 0.75rem;
+        line-height: 1.5;
+        max-width: 100%;
+        width: max-content;
+      }
+
+      .intro-line {
+        opacity: 0;
+        transform: translateY(0.5rem);
+        transition:
+          opacity 200ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1)),
+          transform 200ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1));
+      }
+
+      .intro-line.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .intro-overlay.is-exiting {
+        animation: none;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-100%);
+        transition:
+          opacity 350ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1)),
+          transform 350ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1));
+      }
+
+      .intro-piece {
+        opacity: 1;
+        transition:
+          opacity 200ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1)),
+          transform 200ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1));
+        transition-delay: var(--intro-delay, 0ms);
+      }
+
+      .intro-piece[data-intro-step="navbar"] {
+        --intro-delay: 0ms;
+      }
+
+      .intro-piece[data-intro-step="badge"] {
+        --intro-delay: 105ms;
+      }
+
+      .intro-piece[data-intro-step="headline"] {
+        --intro-delay: 210ms;
+      }
+
+      .intro-piece[data-intro-step="role"] {
+        --intro-delay: 315ms;
+      }
+
+      .intro-piece[data-intro-step="photo"] {
+        --intro-delay: 420ms;
+        transition:
+          opacity 220ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1)),
+          transform 220ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1));
+        transition-delay: var(--intro-delay, 0ms);
+      }
+
+      .intro-piece[data-intro-step="status"] {
+        --intro-delay: 525ms;
+      }
+
+      .intro-piece[data-intro-step="actions"] {
+        --intro-delay: 630ms;
+      }
+
+      .intro-piece[data-intro-step="rails"] {
+        --intro-delay: 735ms;
+      }
+
+      .intro-piece[data-intro-step="scroll-cue"] {
+        --intro-delay: 840ms;
+      }
+
+      #hero-title[data-intro-step="headline"] {
+        --intro-delay: 210ms;
+      }
+
+      .intro-piece[data-intro-step="rails"] {
+        transform: translateY(-50%);
+      }
+
+      .intro-piece[data-intro-step="scroll-cue"] {
+        transform: translateX(-50%);
+      }
+
+      html.js.intro-pending .intro-piece {
+        animation: intro-content-failsafe 1ms linear 3s 1 forwards;
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      html.js.intro-pending .intro-piece[data-intro-step="photo"] {
+        transform: translateY(16px) scale(0.97);
+      }
+
+      html.js.intro-pending .intro-piece[data-intro-step="rails"] {
+        transform: translateY(calc(-50% + 16px));
+      }
+
+      html.js.intro-pending .intro-piece[data-intro-step="scroll-cue"] {
+        transform: translateX(-50%) translateY(16px);
+      }
+
+      html.js.intro-pending .intro-piece[data-intro-step="rails"] {
+        animation-name: intro-rails-failsafe;
+      }
+
+      html.js.intro-pending .intro-piece[data-intro-step="scroll-cue"] {
+        animation-name: intro-scroll-cue-failsafe;
+      }
+
+      html.js.intro-pending .hero-title-word {
+        animation: intro-content-failsafe 1ms linear 3s 1 forwards;
+        transition-delay: calc(var(--intro-delay, 0ms) + var(--word-index, 0) * 70ms);
+      }
+
+      html.js.intro-settled .intro-piece {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none !important;
+        transition-delay: 0ms !important;
+      }
+
+      html.js.intro-settled .intro-piece[data-intro-step="rails"] {
+        transform: translateY(-50%) !important;
+      }
+
+      html.js.intro-settled .intro-piece[data-intro-step="scroll-cue"] {
+        transform: translateX(-50%) !important;
+      }
+
+      html.js.intro-settled .hero-title-word {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none !important;
+        transition-delay: 0ms !important;
+      }
+
+      @keyframes intro-overlay-failsafe {
+        0%,
+        88.333% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        100% {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-100%);
+        }
+      }
+
+      @keyframes intro-content-failsafe {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes intro-rails-failsafe {
+        from {
+          opacity: 0;
+          transform: translateY(calc(-50% + 16px));
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(-50%);
+        }
+      }
+
+      @keyframes intro-scroll-cue-failsafe {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(16px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .intro-overlay,
+        html.js.intro-pending .intro-overlay {
+          animation: none !important;
+          display: none !important;
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+
+        html.js.intro-pending .intro-piece,
+        .intro-piece {
+          animation: none !important;
+          opacity: 1;
+          transition: none !important;
+        }
+
+        html.js.intro-pending .intro-piece {
+          transform: none;
+        }
+
+        html.js.intro-pending .intro-piece[data-intro-step="rails"],
+        .intro-piece[data-intro-step="rails"] {
+          transform: translateY(-50%);
+        }
+
+        html.js.intro-pending .intro-piece[data-intro-step="scroll-cue"],
+        .intro-piece[data-intro-step="scroll-cue"] {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @custom-variant dark (&:where(.dark, .dark *));
+
+      @theme inline {
+        --color-page: var(--page);
+        --color-section-tint: var(--section-tint);
+        --color-section-tint-alt: var(--section-tint-alt);
+        --color-surface: var(--surface);
+        --color-raised: var(--raised);
+        --color-line: var(--line);
+        --color-line-strong: var(--line-strong);
+        --color-control-line: var(--control-line);
+        --color-text: var(--text);
+        --color-copy: var(--copy);
+        --color-muted: var(--muted);
+        --color-heading: var(--heading);
+        --color-placeholder: var(--placeholder);
+        --color-accent: var(--accent);
+        --color-accent-fill: var(--accent-fill);
+        --color-secondary: var(--secondary);
+        --color-secondary-fill: var(--secondary-fill);
+        --color-secondary-hover: var(--secondary-hover);
+        --color-button: var(--button);
+        --color-focus: var(--focus);
+        --color-glow-teal: var(--glow-teal);
+        --color-glow-amber: var(--glow-amber);
+        --color-dot-grid: var(--dot-grid);
+        --color-error: var(--error);
+        --color-success: var(--success);
+        --color-online-label: var(--online-label);
+        --color-away-label: var(--away-label);
+        --color-glass: var(--glass);
+        --color-glass-border: var(--glass-border);
+        --color-shadow-soft: var(--shadow-soft);
+        --color-shadow-ink: var(--shadow-ink);
+        --color-shadow-accent: var(--shadow-accent);
+        --color-shadow-secondary: var(--shadow-secondary);
+        --color-glass-highlight: #ffffff;
+        --color-photo: var(--photo);
+        --color-rail: var(--rail);
+        --color-tooltip: var(--tooltip);
+        --color-cue-border: var(--cue-border);
+        --color-info: var(--info);
+        --color-info-surface: var(--info-surface);
+        --color-info-dark: var(--info-dark);
+        --color-info-surface-dark: var(--info-surface-dark);
+        --color-viewer: #111a2e;
+        --color-viewer-foreground: #ffffff;
+        --color-viewer-overlay: #000000;
+        --color-viewer-border: rgb(255 255 255 / 15%);
+        --color-viewer-control-border: rgb(255 255 255 / 25%);
+        --color-mask: #000000;
+        --font-heading: "Space Grotesk", sans-serif;
+        --font-body: "Inter", sans-serif;
+      }
+
+      :root {
+        color-scheme: light;
+        scroll-behavior: smooth;
+        --ease-out-ui: cubic-bezier(0.23, 1, 0.32, 1);
+        --page: #f4f7fa;
+        --section-tint: rgb(20 184 166 / 3%);
+        --section-tint-alt: rgb(245 158 11 / 2%);
+        --surface: #ffffff;
+        --raised: #f8fafc;
+        --line: #d7e0e8;
+        --line-strong: #d7e0e8;
+        --control-line: #64748b;
+        --text: #172033;
+        --copy: #334155;
+        --muted: #475569;
+        --heading: #0f172a;
+        --placeholder: #64748b;
+        --accent: #0f766e;
+        --accent-fill: #14b8a6;
+        --secondary: #b45309;
+        --secondary-fill: #f59e0b;
+        --secondary-hover: #d97706;
+        --button: #0b1220;
+        --focus: #0f766e;
+        --glow-teal: #5eead4;
+        --glow-amber: #fcd34d;
+        --dot-grid: rgb(71 85 105 / 10%);
+        --error: #b91c1c;
+        --success: #047857;
+        --online-label: #047857;
+        --away-label: #b45309;
+        --glass: rgb(255 255 255 / 60%);
+        --glass-border: rgb(15 23 42 / 12%);
+        --shadow-soft: #0f172a;
+        --shadow-ink: #000000;
+        --shadow-accent: #14b8a6;
+        --shadow-secondary: #f59e0b;
+        --photo: #e2e8f0;
+        --rail: #475569;
+        --tooltip: #f8fafc;
+        --cue-border: rgb(71 85 105 / 55%);
+        --info: #075985;
+        --info-surface: #e0f2fe;
+        --info-dark: #bae6fd;
+        --info-surface-dark: #082f49;
+      }
+
+      .dark {
+        color-scheme: dark;
+        --page: #0b1220;
+        --section-tint: rgb(20 184 166 / 1.2%);
+        --section-tint-alt: rgb(245 158 11 / 1.2%);
+        --surface: #111a2e;
+        --raised: #111a2e;
+        --line: rgb(255 255 255 / 10%);
+        --line-strong: rgb(255 255 255 / 15%);
+        --control-line: rgb(255 255 255 / 15%);
+        --text: #e2e8f0;
+        --copy: #cbd5e1;
+        --muted: #94a3b8;
+        --heading: #ffffff;
+        --placeholder: #94a3b8;
+        --accent: #14b8a6;
+        --accent-fill: #14b8a6;
+        --secondary: #f59e0b;
+        --secondary-fill: #f59e0b;
+        --secondary-hover: #d97706;
+        --button: #0b1220;
+        --focus: #f59e0b;
+        --glow-teal: #14b8a6;
+        --glow-amber: #f59e0b;
+        --dot-grid: rgb(148 163 184 / 25%);
+        --error: #fca5a5;
+        --success: #14b8a6;
+        --online-label: #2dd4bf;
+        --away-label: #fbbf24;
+        --glass: rgb(17 26 46 / 94%);
+        --glass-border: rgb(255 255 255 / 10%);
+        --shadow-soft: #0f172a;
+        --shadow-ink: #000000;
+        --shadow-accent: #14b8a6;
+        --shadow-secondary: #f59e0b;
+        --photo: #111a2e;
+        --rail: #a8b4c7;
+        --tooltip: #111a2e;
+        --cue-border: rgb(148 163 184 / 65%);
+        --info: #bae6fd;
+        --info-surface: #e0f2fe;
+        --info-dark: #bae6fd;
+        --info-surface-dark: #082f49;
+      }
+
+      /* Clip the full-bleed section paint at the viewport so it cannot create horizontal scrolling. */
+      html {
+        overflow-x: clip;
+      }
+
+      .nav-link[aria-current="location"] {
+        color: var(--color-accent);
+      }
+
+      .nav-link,
+      .side-rail--index .side-rail-link {
+        position: relative;
+      }
+
+      .nav-link::before,
+      .side-rail--index .side-rail-link::before {
+        background-color: var(--color-accent);
+        bottom: 0.35rem;
+        content: "";
+        height: 1px;
+        left: 0.75rem;
+        pointer-events: none;
+        position: absolute;
+        right: 0.75rem;
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 180ms var(--ease-out-ui);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .nav-link:hover::before,
+        .side-rail--index .side-rail-link:hover::before {
+          transform: scaleX(1);
+          transform-origin: left center;
+        }
+      }
+
+      .nav-link:focus-visible::before,
+      .side-rail--index .side-rail-link:focus-visible::before {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+
+      .theme-switching,
+      .theme-switching * {
+        transition-property: color, background-color, border-color !important;
+        transition-duration: 200ms !important;
+        transition-timing-function: ease-out !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .theme-switching,
+        .theme-switching * {
+          transition: none !important;
+        }
+      }
+
+      ::selection {
+        background-color: var(--color-accent-fill);
+        color: var(--color-button);
+      }
+
+      body {
+        font-family: var(--font-body);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-heading);
+      }
+
+      .hero-role-line {
+        display: grid;
+      }
+
+      .hero-role-reserve,
+      .hero-role-visual {
+        grid-area: 1 / 1;
+      }
+
+      .hero-role-reserve {
+        visibility: hidden;
+      }
+
+      .profile-photo-frame {
+        isolation: isolate;
+        transform: perspective(900px) rotateX(0deg) rotateY(0deg);
+        transition: transform 250ms var(--ease-out-ui);
+        transform-style: preserve-3d;
+      }
+
+      .profile-photo-frame::after {
+        background: conic-gradient(
+          from 30deg,
+          var(--color-glow-teal),
+          transparent 25%,
+          var(--color-glow-amber) 52%,
+          transparent 77%,
+          var(--color-glow-teal)
+        );
+        border-radius: 2.35rem;
+        content: "";
+        inset: -0.375rem;
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+      }
+
+      .profile-photo-frame.is-pointer-tracking {
+        transition: none;
+        will-change: transform;
+      }
+
+      .profile-photo-frame.is-ring-paused::after {
+        animation-play-state: paused;
+      }
+
+      .profile-photo-image {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      @media (max-width: 39.99rem) {
+        .profile-photo-image {
+          aspect-ratio: 1;
+          height: auto;
+          width: min(14rem, calc(100vw - 3rem));
+        }
+      }
+
+      @media (max-width: 23.99rem) {
+        #home {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero-visual {
+          min-width: 0;
+          width: 100%;
+        }
+
+        .availability-header {
+          flex-wrap: wrap;
+        }
+
+        .availability-header #availability-badge {
+          margin-left: auto;
+        }
+      }
+
+      .custom-cursor-dot,
+      .custom-cursor-ring {
+        border-radius: 50%;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+      }
+
+      .custom-cursor-dot {
+        background: var(--color-heading);
+        height: 0.35rem;
+        width: 0.35rem;
+      }
+
+      .custom-cursor-ring {
+        border: 1px solid var(--cursor-ring);
+        height: 2.25rem;
+        width: 2.25rem;
+      }
+
+      body.custom-cursor-active {
+        cursor: none;
+      }
+
+      body.custom-cursor-active :is(input, textarea, select, [contenteditable="true"]) {
+        cursor: auto;
+      }
+
+      body.custom-cursor-active :is(input, textarea, [contenteditable="true"]) {
+        cursor: text;
+      }
+
+      .custom-cursor-dot.is-visible,
+      .custom-cursor-ring.is-visible {
+        opacity: 1;
+      }
+
+      html.modal-open dialog,
+      html.modal-open dialog::backdrop,
+      html.modal-open dialog * {
+        cursor: auto;
+      }
+
+      html.modal-open dialog :is(a, button, [role="button"]) {
+        cursor: pointer;
+      }
+
+      html.modal-open dialog :is(input, textarea, select, [contenteditable="true"]) {
+        cursor: auto;
+      }
+
+      html.modal-open dialog :is(input, textarea, [contenteditable="true"]) {
+        cursor: text;
+      }
+
+      @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+        html.modal-open dialog,
+        html.modal-open dialog::backdrop,
+        html.modal-open dialog * {
+          cursor: none;
+        }
+
+        html.modal-open dialog :is(a, button, [role="button"]) {
+          cursor: none;
+        }
+
+        html.modal-open dialog :is(input, textarea, select, [contenteditable="true"]) {
+          cursor: auto;
+        }
+
+        html.modal-open dialog :is(input, textarea, [contenteditable="true"]) {
+          cursor: text;
+        }
+      }
+
+      .custom-cursor-ring.is-interactive {
+        border-color: var(--color-accent);
+      }
+
+      :root {
+        --cursor-ring: rgb(15 23 42 / 70%);
+      }
+
+      .dark {
+        --cursor-ring: rgb(248 250 252 / 70%);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .custom-cursor-dot,
+        .custom-cursor-ring {
+          display: none;
+        }
+
+        body.custom-cursor-active {
+          cursor: auto;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .profile-photo-frame::after {
+          animation: profile-ring-rotate 24s linear infinite;
+        }
+
+        .profile-photo-image {
+          transition:
+            opacity 420ms var(--ease-out-ui),
+            transform 420ms var(--ease-out-ui);
+        }
+      }
+
+      @keyframes profile-ring-rotate {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+
+      html.js .hero-title-word {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(0.35em);
+        transition:
+          opacity 320ms var(--ease-out-ui),
+          transform 320ms var(--ease-out-ui);
+        transition-delay: calc(var(--intro-delay, 0ms) + var(--word-index) * 70ms);
+      }
+
+      html.js .hero-title-word.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .hero-title-word[data-shimmer-text] {
+          position: relative;
+        }
+
+        .hero-title-word[data-shimmer-text]::after {
+          background-image: linear-gradient(
+            100deg,
+            transparent 34%,
+            var(--color-surface) 48%,
+            var(--color-surface) 52%,
+            transparent 66%
+          );
+          background-clip: text;
+          content: attr(data-shimmer-text);
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+          position: absolute;
+          transform: translateX(-110%);
+          white-space: nowrap;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title-word[data-shimmer-text].is-visible::after {
+          animation: hero-name-shimmer 600ms linear 500ms 1 both;
+        }
+
+        @keyframes hero-name-shimmer {
+          from {
+            opacity: 0;
+            transform: translateX(-110%);
+          }
+
+          14%,
+          86% {
+            opacity: 1;
+          }
+
+          to {
+            opacity: 0;
+            transform: translateX(110%);
+          }
+        }
+      }
+
+      html.js .motion-reveal {
+        opacity: 0;
+        transform: translateY(var(--reveal-offset, 20px));
+        transition:
+          opacity 450ms var(--ease-out-ui),
+          transform 450ms var(--ease-out-ui);
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+
+      html.js .motion-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      html[data-scroll-direction="up"] {
+        --reveal-offset: -20px;
+      }
+
+      html[data-scroll-direction="down"] {
+        --reveal-offset: 20px;
+      }
+
+      html[data-scroll-direction] .motion-reveal:not(.is-visible) {
+        transition: none;
+      }
+
+      html.js .motion-reveal.is-resetting {
+        transition: none;
+      }
+
+      .section-heading-decrypt {
+        display: grid;
+        position: relative;
+      }
+
+      .section-heading-reserve,
+      .section-heading-visual {
+        grid-area: 1 / 1;
+      }
+
+      .section-heading-reserve {
+        visibility: hidden;
+      }
+
+      .section-heading-visual {
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+      }
+
+      .hero-role-caret {
+        border-inline-end: 0.08em solid currentColor;
+        display: inline-block;
+        height: 1em;
+        margin-inline-start: 0.08em;
+        vertical-align: -0.08em;
+      }
+
+      .hero-cta {
+        transition:
+          transform 120ms var(--ease-out-ui),
+          translate 200ms var(--ease-out-ui);
+      }
+
+      .hero-cta:active {
+        transform: scale(0.98);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .hero-cta:hover {
+          translate: 0 -0.125rem;
+          background-color: var(--color-secondary-hover);
+          box-shadow:
+            0 10px 15px -3px color-mix(in srgb, var(--color-shadow-secondary) 25%, transparent),
+            0 4px 6px -4px color-mix(in srgb, var(--color-shadow-secondary) 25%, transparent);
+        }
+      }
+
+      .glass-panel {
+        background-color: var(--color-glass);
+        border-color: var(--color-glass-border);
+      }
+
+      .availability-panel {
+        background-color: var(--color-glass);
+        border-color: var(--color-glass-border);
+        position: relative;
+      }
+
+      .availability-panel::before {
+        border: 1px solid color-mix(in srgb, var(--color-glass-highlight) 70%, transparent);
+        border-radius: inherit;
+        content: "";
+        inset: 1px;
+        pointer-events: none;
+        position: absolute;
+      }
+
+      #availability-badge[data-state="online"] {
+        background-color: color-mix(in srgb, var(--color-success) 10%, transparent);
+        color: var(--color-online-label);
+      }
+
+      #availability-badge[data-state="away"] {
+        background-color: color-mix(in srgb, var(--color-secondary-fill) 10%, transparent);
+        color: var(--color-away-label);
+      }
+
+      #contact-form [aria-invalid="true"] {
+        border-color: var(--color-error);
+      }
+
+      .availability-dot[data-state="online"] {
+        background-color: var(--color-success);
+      }
+
+      .availability-dot[data-state="away"] {
+        background-color: var(--color-away-label);
+      }
+
+      .availability-dot[data-state="online"] {
+        animation: availability-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes availability-pulse {
+        50% {
+          opacity: 0.55;
+          transform: scale(1.18);
+        }
+      }
+
+      .availability-track {
+        background-color: color-mix(in srgb, var(--color-line) 70%, var(--color-surface));
+        height: 0.375rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .availability-window {
+        background-color: var(--color-accent);
+        height: 100%;
+        left: var(--start, 0%);
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        width: calc(var(--end, 0%) - var(--start, 0%));
+      }
+
+      .availability-track[data-off-today="true"] .availability-window {
+        opacity: 0.35;
+      }
+
+      .availability-now {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform: translateX(var(--now, 0%));
+        transition: transform 300ms var(--ease-out-ui);
+        width: 100%;
+      }
+
+      .availability-now::before {
+        background-color: var(--color-page);
+        border: 1px solid var(--color-heading);
+        box-sizing: border-box;
+        content: "";
+        height: 0.75rem;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 3px;
+      }
+
+      .status-glow {
+        opacity: 0.3;
+      }
+
+      .dark .status-glow {
+        opacity: 0.16;
+      }
+
+      .availability-copy {
+        min-height: 5rem;
+      }
+
+      .availability-note {
+        min-height: 1.25rem;
+      }
+
+      @media (max-width: 22rem) {
+        .availability-copy {
+          min-height: 7.5rem;
+        }
+      }
+
+      html:not(.js) #availability-badge,
+      html:not(.js) #status-message,
+      html:not(.js) #status-relative,
+      html:not(.js) #availability-track,
+      html:not(.js) #availability-note,
+      html:not(.js) #availability-zone,
+      html:not(.js) #availability-time,
+      html:not(.js) .availability-copy {
+        display: none;
+      }
+
+      html.availability-tab-hidden .availability-dot[data-state="online"] {
+        animation-play-state: paused;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .availability-dot[data-state="online"] {
+          animation: none;
+        }
+
+        .availability-now {
+          transition: none;
+        }
+      }
+
+      .project-filter[aria-pressed="true"] {
+        background-color: var(--color-accent-fill);
+        border-color: var(--color-accent-fill);
+        color: var(--color-button);
+        font-weight: 700;
+      }
+
+      .project-image-action {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        display: block;
+        overflow: hidden;
+        padding: 0;
+        position: relative;
+        width: 100%;
+      }
+
+      [data-project-screenshot][data-screenshot-layout="mobile"] .project-image-action {
+        margin-inline: auto;
+        max-width: 100%;
+        width: fit-content;
+      }
+
+      .project-image-action > img {
+        display: block;
+        max-width: 100%;
+        transition: transform 280ms var(--ease-out-ui);
+      }
+
+      .project-image-overlay {
+        background-image: linear-gradient(
+          to top,
+          var(--color-page) 0%,
+          color-mix(in srgb, var(--color-page) 86%, transparent) 62%,
+          transparent 100%
+        );
+        bottom: 0;
+        color: var(--color-text);
+        font-weight: 700;
+        left: 0;
+        opacity: 0;
+        padding: 2.75rem 0.75rem 0.75rem;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        transform: translateY(100%);
+        transition:
+          opacity 220ms var(--ease-out-ui),
+          transform 220ms var(--ease-out-ui);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .project-image-action:hover > img {
+          transform: scale(1.04);
+        }
+
+        .project-image-action:hover .project-image-overlay {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .project-image-action:focus-within .project-image-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .project-image-action > img,
+        .project-image-overlay {
+          transition: none !important;
+        }
+
+        .project-image-action:hover > img,
+        .project-image-action:focus-within > img {
+          transform: none;
+        }
+      }
+
+      .skills-track {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .skills-track.is-autoplaying {
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+      }
+
+      .skills-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .skills-track:focus-visible {
+        outline: 2px solid var(--color-focus);
+        outline-offset: 4px;
+        box-shadow: 0 0 1.25rem color-mix(in srgb, var(--color-shadow-accent) 18%, transparent);
+      }
+
+      .skills-track > [aria-roledescription="slide"] {
+        transition: transform 160ms var(--ease-out-ui);
+      }
+
+      /* Let section backdrops span the viewport without changing the centered content width. */
+      main > section {
+        isolation: isolate;
+        position: relative;
+      }
+
+      main > section::before {
+        background-color: var(--color-section-tint);
+        content: "";
+        inset-block: 0;
+        left: 50%;
+        pointer-events: none;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 100vw;
+        z-index: -1;
+      }
+
+      main > section:nth-of-type(even)::before {
+        background-color: var(--color-section-tint-alt);
+      }
+
+      /* Keep the ambient texture and glows behind content and too faint to compete with text. */
+      body {
+        isolation: isolate;
+      }
+
+      .portfolio-background {
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: fixed;
+        z-index: -1;
+      }
+
+      .portfolio-background::before {
+        background-image: radial-gradient(var(--color-dot-grid) 0.7px, transparent 0.7px);
+        background-size: 24px 24px;
+        content: "";
+        inset: 0;
+        mask-image: radial-gradient(ellipse at center, transparent 8%, var(--color-mask) 90%);
+        opacity: 0.18;
+        position: absolute;
+      }
+
+      .portfolio-glow {
+        border-radius: 9999px;
+        filter: blur(96px);
+        height: 24rem;
+        opacity: 0.11;
+        position: absolute;
+        width: 24rem;
+      }
+
+      .portfolio-glow--teal {
+        background-color: var(--color-glow-teal);
+        left: -10rem;
+        top: -9rem;
+      }
+
+      .portfolio-glow--amber {
+        background-color: var(--color-glow-amber);
+        right: -10rem;
+        top: 33%;
+        opacity: 0.07;
+      }
+
+      /* Small, pointer-inert highlights let the two existing glass surfaces catch light. */
+      .navbar-glow,
+      .status-glow {
+        background: var(--color-glow-teal);
+        border-radius: 9999px;
+        filter: blur(36px);
+        height: 5rem;
+        opacity: 0.2;
+        pointer-events: none;
+        position: absolute;
+        width: 18rem;
+      }
+
+      .navbar-glow {
+        left: 50%;
+        top: 0.25rem;
+        transform: translateX(-50%);
+        z-index: 0;
+      }
+
+      .availability-card-wrap {
+        isolation: isolate;
+        margin-top: 0.375rem;
+        max-width: 18.75rem;
+        position: relative;
+        width: min(100%, 14.75rem);
+      }
+
+      @media (min-width: 40rem) {
+        .availability-card-wrap {
+          width: min(100%, 18.75rem);
+        }
+      }
+
+      .status-glow {
+        bottom: -0.75rem;
+        height: 7rem;
+        left: 50%;
+        opacity: 0.22;
+        transform: translateX(-50%);
+        width: 90%;
+        z-index: -1;
+      }
+
+      /* Side rails fit only in the space outside the unchanged 80rem content column. */
+      .side-rail {
+        display: none;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 30;
+      }
+
+      @media (min-width: 96rem) {
+        .side-rail {
+          display: flex;
+        }
+
+        .side-rail--social {
+          left: max(1rem, calc((100vw - 80rem) / 4 - 1.5rem));
+        }
+
+        .side-rail--index {
+          right: max(0rem, calc((100vw - 80rem) / 4 - 4.5rem));
+          width: 7rem;
+        }
+      }
+
+      /* Short windows keep the fixed rails from crowding the viewport vertically. */
+      @media (min-width: 96rem) and (max-height: 26rem) {
+        .side-rail {
+          display: none;
+        }
+      }
+
+      /* Rail emphasis animates opacity only, with no motion for reduced-motion preferences. */
+      .side-rail-link {
+        color: var(--color-rail);
+        font-size: 0.8125rem;
+        position: relative;
+        transition: opacity 180ms ease;
+      }
+
+      .side-rail--social .side-rail-link::after {
+        background: var(--color-tooltip);
+        border: 1px solid var(--color-line-strong);
+        border-radius: 0.375rem;
+        color: var(--color-text);
+        content: attr(data-tooltip);
+        font-size: 0.75rem;
+        font-weight: 600;
+        left: calc(100% + 0.625rem);
+        opacity: 0;
+        padding: 0.375rem 0.625rem;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: opacity 160ms ease;
+        white-space: nowrap;
+        visibility: hidden;
+      }
+
+      .side-rail--social .side-rail-link:hover::after,
+      .side-rail--social .side-rail-link:focus-visible::after {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .side-rail-line {
+        position: relative;
+      }
+
+      .side-rail-line::after {
+        background: var(--color-muted);
+        border: 2px solid var(--color-page);
+        border-radius: 50%;
+        bottom: -0.25rem;
+        content: "";
+        height: 0.625rem;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 0.625rem;
+      }
+
+      .side-rail-link[aria-current="true"] {
+        color: var(--color-accent);
+        font-weight: 700;
+      }
+
+      .side-rail--index {
+        --rail-marker-offset: 0rem;
+      }
+
+      .side-rail-marker {
+        background-color: var(--color-accent);
+        border-radius: 9999px;
+        height: 0.5rem;
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 1.125rem;
+        transform: translateY(var(--rail-marker-offset));
+        transition: transform 250ms var(--ease-out-ui);
+        width: 0.25rem;
+      }
+
+      .side-rail--index:has(.side-rail-link:nth-of-type(2)[aria-current="true"]) {
+        --rail-marker-offset: 3rem;
+      }
+
+      .side-rail--index:has(.side-rail-link:nth-of-type(3)[aria-current="true"]) {
+        --rail-marker-offset: 6rem;
+      }
+
+      .side-rail--index:has(.side-rail-link:nth-of-type(4)[aria-current="true"]) {
+        --rail-marker-offset: 9rem;
+      }
+
+      .side-rail--index:has(.side-rail-link:nth-of-type(5)[aria-current="true"]) {
+        --rail-marker-offset: 12rem;
+      }
+
+      .side-rail--index:has(.side-rail-link:nth-of-type(6)[aria-current="true"]) {
+        --rail-marker-offset: 15rem;
+      }
+
+      .side-rail-link:focus-visible {
+        outline: 2px solid var(--color-focus);
+        outline-offset: 3px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .nav-link::before,
+        .side-rail--index .side-rail-link::before {
+          transition: none !important;
+        }
+
+        .side-rail-link {
+          transition: none;
+        }
+
+        .side-rail-marker {
+          transition: none !important;
+        }
+
+        .side-rail--social .side-rail-link::after {
+          transition: none;
+        }
+      }
+
+      .hero-scroll-cue {
+        border: 1px solid var(--color-cue-border);
+        border-radius: 9999px;
+        bottom: 1.25rem;
+        height: 1.75rem;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 1rem;
+      }
+
+      .hero-scroll-cue::after {
+        background: var(--color-accent);
+        border-radius: 50%;
+        content: "";
+        height: 0.25rem;
+        left: 50%;
+        position: absolute;
+        top: 0.35rem;
+        transform: translateX(-50%);
+        width: 0.25rem;
+      }
+
+      @media (min-width: 48rem) and (max-width: 63.99rem) {
+        .skills-track > [aria-roledescription="slide"] {
+          width: 44%;
+        }
+      }
+
+      @media (min-width: 64rem) and (max-width: 79.99rem) {
+        .skills-track > [aria-roledescription="slide"] {
+          width: 30%;
+        }
+      }
+
+      @media (min-width: 80rem) {
+        .skills-track > [aria-roledescription="slide"] {
+          width: 23%;
+        }
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .skills-carousel [aria-roledescription="slide"]:hover {
+          transform: translateY(-0.125rem);
+          border-color: var(--color-accent);
+          box-shadow: 0 0 1.25rem color-mix(in srgb, var(--color-shadow-accent) 18%, transparent);
+        }
+      }
+
+      @supports not (backdrop-filter: blur(1px)) {
+        .glass-panel {
+          background-color: var(--color-surface);
+        }
+
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .hero-cta:active {
+          transform: none;
+        }
+
+        .skills-carousel [aria-roledescription="slide"]:hover {
+          transform: none;
+        }
+
+        html.js .hero-title-word,
+        html.js .motion-reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+
+        .hero-role-caret {
+          animation: none;
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen overflow-x-hidden bg-page text-text antialiased">
+    <a
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-secondary-fill focus:px-4 focus:py-3 focus:font-semibold focus:text-button focus:outline-2 focus:outline-offset-2 focus:outline-focus"
+      href="#main-content"
+    >
+      Skip to content
+    </a>
+    <!-- Fixed decorative layers add texture and color without receiving pointer or screen-reader input. -->
+    <div class="portfolio-background" aria-hidden="true">
+      <div class="portfolio-glow portfolio-glow--teal"></div>
+      <div class="portfolio-glow portfolio-glow--amber"></div>
+    </div>
+
+    <div class="intro-overlay" aria-hidden="true">
+      <div id="intro-lines" class="intro-lines font-mono text-sm font-semibold leading-6 sm:text-base"></div>
+    </div>
+
+    <header class="intro-piece sticky top-0 z-40 px-4 pt-4 sm:px-6 lg:px-8" data-intro-step="navbar">
+      <span class="navbar-glow" aria-hidden="true"></span>
+      <nav
+      class="glass-panel relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-line px-4 py-3 shadow-lg shadow-shadow-soft/5 backdrop-blur-xl dark:border-line dark:shadow-shadow-ink/20 sm:px-6"
+        aria-label="Main navigation"
+      >
+        <a
+          class="rounded-lg font-heading text-lg font-bold tracking-tight text-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus dark:text-heading"
+          href="#home"
+          aria-label="Adrian David B. Padolina, home"
+        >
+          A<span class="text-accent">.</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <button
+            id="mobile-menu-toggle"
+            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-control-line px-3 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:text-text md:hidden"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span id="menu-toggle-label">Menu</span>
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M3 5.75A.75.75 0 0 1 3.75 5h12.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 5.75Zm0 4.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 10Zm0 4.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div
+            id="nav-menu"
+            class="absolute left-4 right-4 top-full z-50 mt-2 hidden flex-col gap-1 rounded-2xl border border-line bg-raised p-3 shadow-xl dark:border-line dark:bg-surface md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+          >
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#home" data-nav-link>Home</a>
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#about" data-nav-link>About</a>
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#skills" data-nav-link>Skills</a>
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#projects" data-nav-link>Projects</a>
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#experience" data-nav-link>Journey</a>
+            <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#contact" data-nav-link>Contact</a>
+            <button
+              id="theme-toggle"
+              class="inline-flex min-h-11 min-w-11 items-center justify-center self-start rounded-xl border border-control-line px-3 text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus md:self-auto"
+              type="button"
+              aria-label="Switch to light mode"
+            >
+              <svg class="hidden h-5 w-5 dark:block" data-theme-icon="light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+              </svg>
+              <svg class="h-5 w-5 dark:hidden" data-theme-icon="dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"></path>
+              </svg>
+            </button>
+          </div>
+          <button
+            id="interaction-sound-toggle"
+            class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-control-line text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:text-text"
+            type="button"
+            aria-label="Disable interaction sounds"
+            aria-pressed="true"
+            title="Disable interaction sounds"
+          >
+            <svg class="hidden h-5 w-5" data-sound-icon="off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="m16 9 5 6m0-6-5 6"></path>
+            </svg>
+            <svg class="h-5 w-5" data-sound-icon="on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Social rail uses only contact links verified in content-draft.md; no missing profile is linked. -->
+    <nav class="intro-piece side-rail side-rail--social flex-col items-center gap-1" aria-label="Social links" data-intro-step="rails">
+      <a class="side-rail-link inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:text-accent" href="mailto:davebarrerapadolina@gmail.com" aria-label="Email Adrian" data-tooltip="Email Adrian">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="m4 7 8 6 8-6"></path>
+        </svg>
+      </a>
+      <a class="side-rail-link inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:text-accent" href="https://github.com/Ezekiel911" aria-label="GitHub profile" data-tooltip="GitHub profile" target="_blank" rel="noopener noreferrer">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.24-5.1 5.52.4.35.75 1.03.75 2.08V22c0 .29.2.63.76.52A11.1 11.1 0 0 0 12 .9Z"></path>
+        </svg>
+      </a>
+      <a class="side-rail-link inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:text-accent" href="https://www.facebook.com/adrian.david.padolina.com.ph" aria-label="Facebook profile" data-tooltip="Facebook profile" target="_blank" rel="noopener noreferrer">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.006 10.125 11.854v-8.385H7.078v-3.469h3.047V9.431c0-3.017 1.792-4.686 4.533-4.686 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.491 0-1.956.93-1.956 1.884v2.256h3.328l-.532 3.469h-2.796v8.385C19.612 23.079 24 18.092 24 12.073Z"></path>
+        </svg>
+      </a>
+      <span class="side-rail-line mt-2 h-20 w-px bg-muted/70" aria-hidden="true"></span>
+    </nav>
+
+    <!-- The existing section observer also updates these native fragment links. -->
+    <nav class="intro-piece side-rail side-rail--index flex-col gap-1" aria-label="Section index" data-intro-step="rails">
+      <span class="side-rail-marker" aria-hidden="true"></span>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#home" data-nav-link data-section-index-link><span class="text-secondary">01</span>Home</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#about" data-nav-link data-section-index-link><span class="text-secondary">02</span>About</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#skills" data-nav-link data-section-index-link><span class="text-secondary">03</span>Skills</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#projects" data-nav-link data-section-index-link><span class="text-secondary">04</span>Projects</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#experience" data-nav-link data-section-index-link><span class="text-secondary">05</span>Journey</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#contact" data-nav-link data-section-index-link><span class="text-secondary">06</span>Contact</a>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+      <section
+        id="home"
+        class="relative mx-auto grid min-h-[calc(100svh-7rem)] max-w-7xl items-center gap-12 px-4 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-12 md:grid-cols-2 lg:gap-20 lg:px-8"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero-copy order-2 max-w-2xl md:order-1">
+          <h1
+            id="hero-title"
+            class="text-balance text-5xl font-bold leading-[1.05] tracking-tight text-heading dark:text-heading sm:text-6xl lg:text-7xl"
+            data-intro-step="headline"
+          >
+            Hi, I’m <span class="text-accent">Adrian.</span>
+          </h1>
+          <p id="hero-tagline" class="intro-piece hero-role-line mt-6 max-w-xl text-balance text-xl font-semibold leading-relaxed text-text dark:text-text sm:text-2xl" data-intro-step="role">
+            I’m an IT student and aspiring cybersecurity professional who solves problems and builds secure systems.
+          </p>
+          <p class="intro-piece mt-5 max-w-xl text-base leading-8 text-text dark:text-copy sm:text-lg" data-intro-step="role">
+            I want to begin my career in cybersecurity, using my troubleshooting skills and customer-service mindset to help protect systems and support the people who rely on them. I also want to keep building web and mobile projects so I can strengthen my skills in secure, reliable software.
+          </p>
+          <div class="intro-piece mt-8 flex flex-wrap items-center gap-4" data-intro-step="actions">
+            <a
+              class="hero-cta inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-secondary-fill px-5 py-3 font-bold text-button shadow-lg shadow-shadow-secondary/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
+              href="#contact"
+            >
+              Get in touch
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3.25 10a.75.75 0 0 1 .75-.75h10.19l-3.72-3.72a.75.75 0 1 1 1.06-1.06l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06l3.72-3.72H4a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a
+              class="inline-flex min-h-12 items-center justify-center rounded-xl border border-control-line px-5 py-3 font-semibold text-text hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus dark:border-control-line dark:text-text dark:hover:border-accent dark:hover:text-accent"
+              href="#projects"
+            >
+              View projects
+            </a>
+          </div>
+
+          <!-- Compact proof chips use only project and tool facts confirmed in content-draft.md. -->
+          <ul class="intro-piece mt-5 flex flex-wrap gap-1.5 text-xs font-semibold text-copy" aria-label="Projects and tools" data-intro-step="actions">
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">3 projects</li>
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Java · PHP</li>
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Flutter · Firebase</li>
+            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">HTML · CSS · JavaScript · Tailwind CSS</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual order-1 flex flex-col items-center gap-5 md:order-2">
+          <div class="profile-photo-frame is-ring-paused relative">
+            <div class="absolute -inset-4 rounded-[2rem] bg-glow-teal/15 blur-2xl" aria-hidden="true"></div>
+            <img
+              class="intro-piece profile-photo-image relative h-56 w-56 rounded-[2rem] border border-line bg-photo object-cover shadow-2xl shadow-shadow-soft/10 dark:border-line dark:shadow-shadow-ink/30 sm:h-72 sm:w-72"
+              src="images/adrian.png"
+              alt="Portrait of Adrian David B. Padolina"
+              width="288"
+              height="288"
+              data-intro-step="photo"
+            />
+          </div>
+
+          <div class="availability-card-wrap">
+            <span class="status-glow" aria-hidden="true"></span>
+            <aside
+              class="intro-piece availability-panel glass-panel w-full rounded-2xl border p-4 shadow-lg shadow-shadow-soft/5 backdrop-blur-xl dark:shadow-shadow-ink/20 sm:p-5"
+              aria-labelledby="availability-title"
+              data-intro-step="status"
+            >
+              <div class="availability-header flex items-center justify-between gap-3">
+                <h2 id="availability-title" class="font-heading text-base font-semibold text-heading dark:text-heading">
+                  Availability
+                </h2>
+                <span id="availability-badge" class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold" data-state="away">
+                  <span id="availability-dot" class="availability-dot inline-flex h-2.5 w-2.5 rounded-full" data-state="away" aria-hidden="true"></span>
+                  <span id="availability-state">—</span>
+                </span>
+              </div>
+              <div class="availability-copy mt-3">
+                <p id="status-message" class="text-sm font-medium leading-6 text-text dark:text-text" role="status" aria-live="polite" aria-atomic="true"></p>
+                <p id="status-relative" class="mt-1 min-h-6 text-sm leading-6 text-muted dark:text-copy"></p>
+              </div>
+              <div class="mt-4" aria-hidden="true">
+                <div id="availability-track" class="availability-track rounded-full" data-off-today="true">
+                  <span class="availability-window"></span>
+                  <span id="availability-now" class="availability-now"></span>
+                </div>
+              </div>
+              <p id="availability-note" class="availability-note pt-1 text-xs font-medium text-muted dark:text-copy"></p>
+              <div class="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3 text-xs text-muted dark:border-line dark:text-copy">
+                <span id="availability-zone">My time</span>
+                <time id="availability-time" class="shrink-0 font-mono">--:--</time>
+              </div>
+              <noscript>
+                <p class="mt-4 border-t border-line pt-4 text-sm text-muted dark:border-line dark:text-copy">
+                  Live availability requires JavaScript.
+                </p>
+              </noscript>
+            </aside>
+          </div>
+        </div>
+        <span class="intro-piece hero-scroll-cue" aria-hidden="true" data-intro-step="scroll-cue"></span>
+      </section>
+
+      <section
+        id="about"
+        class="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        aria-labelledby="about-title"
+      >
+        <div class="mb-10 max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">About</p>
+          <h2 id="about-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
+            Cybersecurity, troubleshooting, and building projects.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
+            As an information technology student passionate about cybersecurity, I'm eager to apply my troubleshooting skills and dedication to customer service in a real-world setting. I've built a café ordering app in Java, a dormitory dashboard with a mobile app, a notes-and-calendar app in Flutter, and a responsive product page.
+          </p>
+        </div>
+
+        <article class="max-w-4xl rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-8">
+          <p class="text-sm font-semibold text-accent">MY GOAL</p>
+          <p class="mt-3 text-base leading-7 text-text dark:text-copy sm:text-lg">
+            I want to begin my career in cybersecurity, using my troubleshooting skills and customer-service mindset to help protect systems and support the people who rely on them. I also want to keep building web and mobile projects so I can strengthen my skills in secure, reliable software.
+          </p>
+        </article>
+      </section>
+
+      <section
+        id="skills"
+        class="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        aria-labelledby="skills-title"
+      >
+        <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div class="max-w-2xl">
+            <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">What I work with</p>
+            <h2 id="skills-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
+              Skills &amp; technologies
+            </h2>
+            <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
+              Security topics, project technologies, and people-focused skills.
+            </p>
+          </div>
+          <button
+            id="skills-autoplay-toggle"
+            class="inline-flex min-h-11 shrink-0 items-center justify-center self-start rounded-xl border border-control-line px-4 py-2 text-sm font-semibold text-text hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:text-text sm:self-end"
+            type="button"
+            aria-pressed="false"
+          >
+            Pause motion
+          </button>
+        </div>
+
+        <div id="skills-carousel-area">
+          <div
+            class="skills-carousel"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Technical skills and tools"
+          >
+            <div
+              id="skills-track"
+              class="skills-track flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 pb-5"
+              tabindex="0"
+              aria-label="Technical skills. Use the left and right arrow keys to scroll."
+              data-autoplay-track
+              data-autoplay-direction="right"
+            >
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="1 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">J</span>
+              <h3 class="text-xl font-bold">Java</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Built a café ordering app using Java.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Programming</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="2 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">PHP</span>
+              <h3 class="text-xl font-bold">PHP</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Built the SafeDorm+ dormitory dashboard in PHP.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Backend</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="3 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">HTML</span>
+              <h3 class="text-xl font-bold">HTML</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Used HTML to structure the SafeDorm+ dashboard.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Markup</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="4 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CSS</span>
+              <h3 class="text-xl font-bold">CSS</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Styled the SafeDorm+ dashboard pages with CSS.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Styling</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="5 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">JS</span>
+              <h3 class="text-xl font-bold">JavaScript</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Added a product count and card interactions to TechTown.inc.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Scripting</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="6 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TW</span>
+              <h3 class="text-xl font-bold">Tailwind CSS</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Used Tailwind CSS on the responsive TechTown.inc product page.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">CSS framework</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="7 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">D/F</span>
+              <h3 class="text-xl font-bold">Dart / Flutter</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Built Flow as a notes-and-calendar app with Flutter and Dart.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Mobile</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="8 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">FB</span>
+              <h3 class="text-xl font-bold">Firebase</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Used Authentication and Firestore for SafeDorm+ mobile sign-in and profile flows.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Backend / cloud</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="9 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">G</span>
+              <h3 class="text-xl font-bold">Git</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Listed as a technical tool; the draft does not name a specific project use.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Version control</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="10 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CY</span>
+              <h3 class="text-xl font-bold">Cybersecurity</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="11 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">NS</span>
+              <h3 class="text-xl font-bold">Network security</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="12 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TA</span>
+              <h3 class="text-xl font-bold">Threat analysis</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="13 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">SH</span>
+              <h3 class="text-xl font-bold">System hardening</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="14 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">SA</span>
+              <h3 class="text-xl font-bold">Systems administration</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            <article data-skill-slide class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="15 of 15">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">IT</span>
+              <h3 class="text-xl font-bold">IT infrastructure</h3>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">A stated focus area; the draft does not connect it to a specific project.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Cybersecurity</span>
+            </article>
+            </div>
+          </div>
+
+        <div
+          class="skills-carousel mt-8"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="People skills"
+        >
+          <h3 class="mb-4 text-lg font-bold text-heading">People skills</h3>
+          <div
+            id="people-skills-track"
+            class="skills-track flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 pb-5"
+            tabindex="0"
+            aria-label="People skills. Use the left and right arrow keys to scroll."
+            data-autoplay-track
+            data-autoplay-direction="left"
+          >
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="1 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">TS</span>
+              <h4 class="text-xl font-bold">Troubleshooting</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Investigating technical issues to find a way forward.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+            </article>
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="2 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">PD</span>
+              <h4 class="text-xl font-bold">Problem diagnosis</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Identifying the source of a problem before resolving it.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+            </article>
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="3 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">IR</span>
+              <h4 class="text-xl font-bold">Technical issue resolution</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Working through technical issues toward a resolution.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Problem solving</span>
+            </article>
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="4 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CS</span>
+              <h4 class="text-xl font-bold">Customer service</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Helping customers with a clear and supportive approach.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Service</span>
+            </article>
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="5 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">S</span>
+              <h4 class="text-xl font-bold">Support</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Providing assistance to people who need help.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Service</span>
+            </article>
+            <article class="w-[85%] flex-none snap-start rounded-2xl border border-line bg-surface p-6 text-heading md:w-[48%] xl:w-[24%]" role="group" aria-roledescription="slide" aria-label="6 of 6">
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent/30 bg-accent-fill/10 text-sm font-bold text-accent" aria-hidden="true">CR</span>
+              <h4 class="text-xl font-bold">Client relationship management</h4>
+              <p class="mt-3 min-h-14 text-sm leading-6 text-copy">Building and maintaining positive client relationships.</p>
+              <span class="mt-5 inline-flex rounded-full bg-secondary-fill px-3 py-1 text-xs font-bold text-button">Communication</span>
+            </article>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section
+        id="projects"
+        class="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        aria-labelledby="projects-title"
+      >
+        <div class="mb-8 max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Selected work</p>
+          <h2 id="projects-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
+            Three projects I’ve built.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
+            Web and mobile work across dormitory management, planning, and product pages.
+          </p>
+        </div>
+
+        <div class="mb-7 flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
+          <button class="project-filter rounded-full border border-accent bg-accent-fill px-4 py-2 text-sm font-bold text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-filter-category="all" aria-pressed="true">All</button>
+          <button class="project-filter rounded-full border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="web" aria-pressed="false">Web</button>
+          <button class="project-filter rounded-full border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="mobile" aria-pressed="false">Mobile</button>
+        </div>
+        <p id="project-filter-status" class="sr-only" aria-live="polite"></p>
+
+        <div id="project-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <article
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            data-category="web mobile"
+          >
+            <div data-project-gallery class="mb-5 grid grid-cols-[minmax(0,1fr)_minmax(5rem,0.48fr)] items-center gap-3 rounded-xl bg-raised p-3 dark:bg-page sm:gap-4">
+              <figure data-project-screenshot data-screenshot-layout="desktop" class="min-w-0">
+                <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+                  <span class="sr-only">View details: </span>
+                  <img
+                    class="aspect-video w-full rounded-lg object-contain"
+                    src="images/website_safedorm.jpg"
+                    alt="SafeDorm+ web dashboard showing room monitoring, sensor status, alerts, and incident summaries."
+                    width="1919"
+                    height="1079"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="project-image-overlay" aria-hidden="true">View details</span>
+                </button>
+                <figcaption class="mt-2 text-center text-xs font-semibold text-text dark:text-copy">Web dashboard</figcaption>
+              </figure>
+              <figure data-project-screenshot data-screenshot-layout="mobile" class="min-w-0">
+                <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+                  <span class="sr-only">View details: </span>
+                  <img
+                    class="mx-auto h-52 max-w-full rounded-lg object-contain"
+                    src="images/mobile_safedorm.jpg"
+                    alt="SafeDorm+ mobile home screen with room safety status, sensor readings, and bottom navigation."
+                    width="936"
+                    height="2048"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="project-image-overlay" aria-hidden="true">View details</span>
+                </button>
+                <figcaption class="mt-2 text-center text-xs font-semibold text-text dark:text-copy">Mobile app</figcaption>
+              </figure>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full bg-info-surface px-3 py-1 text-xs font-bold text-info dark:bg-info-surface-dark dark:text-info-dark">Web</span>
+              <span class="rounded-full bg-secondary-fill/20 px-3 py-1 text-xs font-bold text-secondary dark:text-secondary">Mobile</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">SafeDorm+</h3>
+            <p class="mt-2 leading-7 text-text dark:text-copy">
+              I organized SafeDorm+ as a PHP dormitory dashboard and a separate Flutter app. The dashboard brings tenant management, analytics, reports, and settings together. The mobile app includes sign-in and profile flows backed by Firebase Authentication and Firestore, with Google Sign-In dependencies declared. I could not verify a live sensor connection or a shared backend between the dashboard and app.
+            </p>
+            <ul class="mt-5 flex flex-wrap gap-2" aria-label="SafeDorm+ tools">
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">PHP</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">HTML</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">CSS</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">JavaScript</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Tailwind CSS</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Chart.js</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Lucide</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Dart</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Flutter</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Authentication</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Cloud Firestore</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Google Sign-In</li>
+            </ul>
+            <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+              View details
+            </button>
+          </article>
+
+          <article
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            data-category="mobile"
+          >
+            <div class="mb-5 rounded-xl bg-raised p-3 dark:bg-page">
+              <figure data-project-screenshot data-screenshot-layout="mobile" class="min-w-0">
+                <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+                  <span class="sr-only">View details: </span>
+                  <img
+                    class="mx-auto h-64 max-w-full rounded-lg object-contain"
+                    src="images/flow_dashboard.jpg"
+                    alt="Flow mobile schedule screen showing the October 2026 calendar and agenda controls."
+                    width="864"
+                    height="1920"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="project-image-overlay" aria-hidden="true">View details</span>
+                </button>
+                <figcaption class="mt-2 text-center text-xs font-semibold text-text dark:text-copy">Flow schedule</figcaption>
+              </figure>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full bg-secondary-fill/20 px-3 py-1 text-xs font-bold text-secondary dark:text-secondary">Mobile</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">Flow</h3>
+            <p class="mt-2 leading-7 text-text dark:text-copy">
+              I built Flow as a Flutter app that combines notes with a calendar and schedule workflow. Its source includes Firestore-backed notes, note search and pinning, event search and category filtering, recurring events, scheduled local notifications, and home-screen widget navigation.
+            </p>
+            <ul class="mt-5 flex flex-wrap gap-2" aria-label="Flow tools">
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Dart</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Flutter</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Authentication</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Cloud Firestore</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Firebase Storage</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Provider</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">sqflite</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Local notifications</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Home widgets</li>
+            </ul>
+            <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+              View details
+            </button>
+          </article>
+          <article
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            data-category="web"
+          >
+            <div class="mb-5 rounded-xl bg-raised p-3 dark:bg-page">
+              <figure data-project-screenshot data-screenshot-layout="desktop" class="min-w-0">
+                <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+                  <span class="sr-only">View details: </span>
+                  <img
+                    class="aspect-video w-full rounded-lg object-contain"
+                    src="images/techtown_dashboard.png"
+                    alt="TechTown.inc product page showing its navigation and six product cards."
+                    width="1920"
+                    height="1080"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="project-image-overlay" aria-hidden="true">View details</span>
+                </button>
+                <figcaption class="mt-2 text-center text-xs font-semibold text-text dark:text-copy">TechTown product page</figcaption>
+              </figure>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full bg-info-surface px-3 py-1 text-xs font-bold text-info dark:bg-info-surface-dark dark:text-info-dark">Web</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">TechTown.inc</h3>
+            <p class="mt-2 leading-7 text-text dark:text-copy">
+              I made TechTown.inc as a responsive product page with six generic product cards and a product count that JavaScript sets from the cards on the page. Clicking a card only logs its generic name and briefly changes its appearance; product details and working navigation destinations are not present in the reviewed files.
+            </p>
+            <ul class="mt-5 flex flex-wrap gap-2" aria-label="TechTown.inc tools">
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">HTML</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">JavaScript</li>
+              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Tailwind CSS</li>
+            </ul>
+            <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
+              View details
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section
+        id="experience"
+        class="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        aria-labelledby="experience-title"
+      >
+        <div class="mb-10 max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Education &amp; experience</p>
+          <h2 id="experience-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
+            Learning by doing.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
+            My degree and the experience and learning goals I’m working toward.
+          </p>
+        </div>
+
+        <ol class="relative ml-2 space-y-5 border-l-2 border-accent/30 pl-6 sm:ml-4 sm:pl-8">
+          <li class="relative">
+            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+              <p class="text-sm font-semibold text-accent">CURRENT · EDUCATION</p>
+              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">BS Information Technology</h3>
+            </article>
+          </li>
+          <li class="relative">
+            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+              <p class="text-sm font-semibold text-accent">PLANNED · 2027 CAREER GOAL</p>
+              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">IT Support Internship</h3>
+              <p class="mt-2 leading-7 text-text dark:text-copy">
+                I plan to pursue an internship supporting users with basic hardware, software, account-access, and network issues, while documenting requests and escalating problems when needed.
+              </p>
+            </article>
+          </li>
+          <li class="relative">
+            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+              <p class="text-sm font-semibold text-accent">PLANNED · 2027 LEARNING GOALS</p>
+              <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Seminars &amp; certification goals</h3>
+              <p class="mt-2 leading-7 text-text dark:text-copy">
+                I’m aiming to attend a cybersecurity awareness seminar and a basic networking and troubleshooting workshop, then work toward the Google Cybersecurity Certificate. These are future goals, not completed training or certifications.
+              </p>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <section
+        id="contact"
+        class="mx-auto max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+        aria-labelledby="contact-title"
+      >
+        <div class="mb-10 max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Contact</p>
+          <h2 id="contact-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
+            Let’s build something useful.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
+            Have a campus or community problem in mind? I’d be glad to connect.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
+          <div class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-8 lg:col-span-3">
+            <form id="contact-form" novalidate>
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <label class="mb-2 block text-sm font-semibold text-text dark:text-text" for="contact-name">Name</label>
+                  <input class="w-full rounded-xl border border-control-line bg-surface px-4 py-3 text-text outline-none placeholder:text-placeholder focus:border-focus focus:ring-2 focus:ring-focus/30 dark:border-control-line dark:bg-page dark:text-heading dark:placeholder:text-placeholder" id="contact-name" name="name" type="text" autocomplete="name" aria-describedby="name-error" required />
+                  <p class="mt-1 min-h-5 text-sm font-medium text-error dark:text-error" id="name-error"></p>
+                </div>
+                <div>
+                  <label class="mb-2 block text-sm font-semibold text-text dark:text-text" for="contact-email">Email</label>
+                  <input class="w-full rounded-xl border border-control-line bg-surface px-4 py-3 text-text outline-none placeholder:text-placeholder focus:border-focus focus:ring-2 focus:ring-focus/30 dark:border-control-line dark:bg-page dark:text-heading dark:placeholder:text-placeholder" id="contact-email" name="email" type="email" autocomplete="email" aria-describedby="email-error" required />
+                  <p class="mt-1 min-h-5 text-sm font-medium text-error dark:text-error" id="email-error"></p>
+                </div>
+              </div>
+              <div class="mt-1">
+                <label class="mb-2 block text-sm font-semibold text-text dark:text-text" for="contact-message">Message</label>
+                <textarea class="w-full resize-y rounded-xl border border-control-line bg-surface px-4 py-3 text-text outline-none placeholder:text-placeholder focus:border-focus focus:ring-2 focus:ring-focus/30 dark:border-control-line dark:bg-page dark:text-heading dark:placeholder:text-placeholder" id="contact-message" name="message" rows="5" aria-describedby="message-error" required></textarea>
+                <p class="mt-1 min-h-5 text-sm font-medium text-error dark:text-error" id="message-error"></p>
+              </div>
+              <div class="mt-1">
+                <label class="mb-2 block text-sm font-semibold text-text dark:text-text" for="contact-priority">Inquiry type</label>
+                <select class="w-full rounded-xl border border-control-line bg-surface px-4 py-3 text-text outline-none focus:border-focus focus:ring-2 focus:ring-focus/30 dark:border-control-line dark:bg-page dark:text-heading" id="contact-priority" name="priority">
+                  <option value="Project" selected>Project</option>
+                  <option value="Internship">Internship</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+              <button class="mt-4 inline-flex min-h-12 items-center justify-center rounded-xl bg-secondary-fill px-5 py-3 font-bold text-button shadow-lg shadow-shadow-secondary/15 transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary-fill/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus motion-reduce:transform-none" type="submit">
+                Prepare email
+              </button>
+              <p id="form-success" class="mt-4 min-h-6 text-sm font-semibold text-success" role="status" aria-live="polite"></p>
+              <p class="mt-2 text-xs leading-5 text-muted dark:text-muted">
+                This prepares an email in your mail application. Nothing is sent or stored on this website.
+              </p>
+            </form>
+          </div>
+
+          <aside class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-8 lg:col-span-2" aria-labelledby="connect-title">
+            <h3 id="connect-title" class="text-xl font-bold text-heading dark:text-heading">Find me online</h3>
+            <p class="mt-3 leading-7 text-text dark:text-copy">
+              Email Adrian or view his public GitHub projects.
+            </p>
+            <ul class="mt-6 space-y-3">
+              <li>
+                <p class="min-h-12 rounded-xl border border-line px-4 py-3 font-semibold text-text dark:border-line dark:text-text">
+                  Email:
+                  <a class="break-all text-accent underline-offset-4 hover:underline" href="mailto:davebarrerapadolina@gmail.com">davebarrerapadolina@gmail.com</a>
+                </p>
+              </li>
+              <li>
+                <p class="min-h-12 rounded-xl border border-line px-4 py-3 font-semibold text-text dark:border-line dark:text-text">
+                  GitHub:
+                  <a class="text-accent underline-offset-4 hover:underline" href="https://github.com/Ezekiel911" target="_blank" rel="noopener noreferrer">github.com/Ezekiel911</a>
+                </p>
+              </li>
+              <li>
+                <p class="min-h-12 rounded-xl border border-line px-4 py-3 font-semibold text-text dark:border-line dark:text-text">
+                  Facebook:
+                  <a class="break-all text-accent underline-offset-4 hover:underline" href="https://www.facebook.com/adrian.david.padolina.com.ph" target="_blank" rel="noopener noreferrer">facebook.com/adrian.david.padolina.com.ph</a>
+                </p>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <dialog
+      id="project-modal"
+      class="glass-panel m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-4xl overflow-y-auto overscroll-contain rounded-2xl border border-line p-0 text-text shadow-2xl shadow-shadow-ink/40 backdrop-blur-xl dark:border-line dark:text-text"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <div class="p-5 sm:p-8">
+        <div class="flex items-start justify-between gap-5">
+          <div class="min-w-0">
+            <p class="text-sm font-bold uppercase tracking-[0.15em] text-accent">Project details</p>
+            <h2 id="modal-title" class="mt-2 text-2xl font-bold tracking-tight text-heading dark:text-heading sm:text-3xl"></h2>
+          </div>
+          <button id="modal-close" class="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-xl border border-control-line text-text hover:border-secondary hover:text-heading focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:text-text dark:hover:text-heading" type="button" aria-label="Close project details" autofocus>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4.22 4.22a.75.75 0 0 1 1.06 0L10 8.94l4.72-4.72a.75.75 0 1 1 1.06 1.06L11.06 10l4.72 4.72a.75.75 0 1 1-1.06 1.06L10 11.06l-4.72 4.72a.75.75 0 1 1-1.06-1.06L8.94 10 4.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <section class="mt-5" aria-labelledby="modal-overview-heading">
+          <h3 id="modal-overview-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Overview</h3>
+          <p id="modal-description" class="mt-2 max-w-prose text-base leading-7 text-text dark:text-text"></p>
+        </section>
+        <section id="modal-gallery" class="mt-7" aria-labelledby="modal-screenshots-heading" hidden>
+          <h3 id="modal-screenshots-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Screenshots</h3>
+          <div id="modal-screenshots" class="mt-3 grid grid-cols-1 items-start gap-4 sm:grid-cols-[minmax(0,2fr)_minmax(9rem,1fr)]"></div>
+        </section>
+        <div class="mt-7 grid gap-6 border-t border-line pt-5 dark:border-line sm:grid-cols-2">
+          <section aria-labelledby="modal-categories-heading">
+            <h3 id="modal-categories-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Categories</h3>
+            <ul id="modal-categories" class="mt-3 flex flex-wrap gap-2"></ul>
+          </section>
+          <section aria-labelledby="modal-tools-heading">
+            <h3 id="modal-tools-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Technologies</h3>
+            <ul id="modal-tools" class="mt-3 flex flex-wrap gap-2"></ul>
+          </section>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog
+      id="screenshot-viewer"
+      class="m-auto open:flex h-[calc(100dvh-1rem)] max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-none flex-col items-center justify-center rounded-2xl border border-viewer-border bg-viewer p-4 text-viewer-foreground backdrop:bg-viewer-overlay/95 sm:p-8"
+      aria-labelledby="screenshot-viewer-title"
+    >
+      <button
+        id="screenshot-viewer-close"
+        class="absolute end-3 top-3 inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-viewer-control-border bg-viewer-overlay/60 text-viewer-foreground hover:bg-viewer-overlay/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        type="button"
+        aria-label="Close full-size screenshot"
+        autofocus
+      >
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M4.22 4.22a.75.75 0 0 1 1.06 0L10 8.94l4.72-4.72a.75.75 0 1 1 1.06 1.06L11.06 10l4.72 4.72a.75.75 0 1 1-1.06 1.06L10 11.06l-4.72 4.72a.75.75 0 1 1-1.06-1.06L8.94 10 4.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <h2 id="screenshot-viewer-title" class="sr-only"></h2>
+      <img id="screenshot-viewer-image" class="max-h-[calc(100dvh-6rem)] max-w-full rounded-lg object-contain" alt="" />
+      <p id="screenshot-viewer-caption" class="mt-3 text-center text-sm font-semibold text-viewer-foreground"></p>
+    </dialog>
+
+    <footer class="border-t border-line px-4 py-6 text-center text-sm text-muted dark:border-line dark:text-muted">
+      <p>© <span id="current-year"></span> Adrian David B. Padolina.</p>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+    <script src="js/projects.js" defer></script>
+    <script src="js/contact.js" defer></script>
+    <script src="js/status.js" defer></script>
+  </body>
+</html>
