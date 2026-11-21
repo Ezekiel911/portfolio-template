@@ -1,6 +1,6 @@
-# Adrian David B. Padolina — Portfolio
+# Privacy-Safe Portfolio Template
 
-A responsive, accessible personal portfolio for an IT student focused on cybersecurity, troubleshooting, web, and mobile development.
+A responsive, accessible portfolio starter that contains no personal identity, contact details, or personal project evidence. Replace the clearly labeled placeholders with only the information you approve for public display.
 
 ## Preview
 
@@ -19,13 +19,13 @@ Then visit `http://localhost:8080`.
 - Vanilla JavaScript
 - Native HTML dialogs
 
-## Features
+## Template features
 
 - Responsive desktop and mobile navigation
 - Light and dark themes with saved preference
 - Project category filters
 - Accessible project and screenshot dialogs
-- Keyboard-friendly form validation
+- Privacy-safe monogram identity
 - Static hosting compatibility
 
 ## Deployment
@@ -37,8 +37,11 @@ This repository is designed for GitHub Pages:
 3. Set **Source** to **Deploy from a branch**.
 4. Select `main` and the `/ (root)` folder.
 
-## Content
+## Safe customization
 
-The public profile uses a privacy-safe monogram instead of a personal portrait and does not publish a direct email address or personal social profile.
-
-Verified project and profile information is recorded in `PRODUCT.md`. Personal and project claims should remain limited to verifiable evidence.
+1. Replace "Your Name" and the `YN` monogram.
+2. Add only verified education, skills, goals, and project outcomes.
+3. Replace project names and the neutral screenshots.
+4. Remove or replace every `#` link.
+5. Use `PORTFOLIO_PROMPT.md` when asking an AI assistant to update the site.
+6. Scan the repository for emails, phone numbers, addresses, IDs, private usernames, and personal photos before publishing.

@@ -12,15 +12,15 @@ Static HTML, CSS, Tailwind utility classes, and vanilla JavaScript.
 
 ## Users
 
-Recruiters, hiring managers, instructors, and peers evaluating Adrian David B. Padolina for entry-level IT support or cybersecurity opportunities.
+Template users: developers and students who want a responsive, accessible, repository-ready portfolio.
 
 ## Product Purpose
 
-Present Adrian's skills, education, project work, and verified contact details as a clear, accessible personal portfolio.
+Provide a no-data portfolio foundation that can be customized with verified personal facts.
 
 ## Positioning
 
-Adrian's portfolio combines an IT-support mindset with project work in web and mobile development and a stated career goal in cybersecurity.
+The template separates identity, projects, education, and professional links so private or unverified information is not required.
 
 ## Operating Context
 
@@ -35,17 +35,17 @@ The site is a public, mobile-first portfolio that must remain easy to scan on a 
 
 ## Brand Commitments
 
-- Name: Adrian David B. Padolina.
+- Name: `Your Name`.
 - Approved project screenshots.
 - Professional, approachable, security-minded tone.
 
 ## Evidence on Hand
 
-- Project and profile facts retained only in this product record.
+- No personal profile facts included.
 - Privacy-safe initials monogram instead of a personal portrait.
-- Project screenshots for SafeDorm+, Flow, and TechTown.inc under `images/`.
+- Neutral screenshot placeholder under `images/template-placeholder.svg`.
 - No direct email address or personal social profile in the public site.
-- Verified GitHub: https://github.com/Ezekiel911.
+- Optional public profile links only.
 
 ## Product Principles
 
