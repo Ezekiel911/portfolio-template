@@ -468,8 +468,19 @@ function handleAvailabilityVisibilityChange() { // Respond to native document vi
   } // Finish hidden-tab handling.
   startAvailabilityUpdates(); // Recompute immediately and schedule the next minute.
 } // Finish visibility handling.
-// Leave the template status card unconfigured until an approved schedule exists.
-if (availabilityState?.textContent !== "Unconfigured") {
+// Leave the availability behavior inactive when the template status card is not present.
+if (
+  availabilityBadge &&
+  availabilityState &&
+  availabilityMessage &&
+  availabilityRelative &&
+  availabilityDot &&
+  availabilityTrack &&
+  availabilityTime &&
+  availabilityZone &&
+  availabilityNote &&
+  availabilityState.textContent !== "Unconfigured"
+) {
   startAvailabilityUpdates();
   document.addEventListener("visibilitychange", handleAvailabilityVisibilityChange);
 }
