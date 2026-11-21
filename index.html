@@ -69,6 +69,7 @@
       setPortfolioIntroPrepaintState(); // Run the eligibility check before the page styles and content paint.
     </script>
     <style>
+      /* Hallmark · theme terminal · critique P5 H4 E5 S3 R5 V4 · weakest: S, the section rhythm */
       html {
         color-scheme: light;
       }
@@ -109,7 +110,7 @@
       }
 
       .intro-line {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(0.5rem);
         transition:
           opacity 200ms var(--ease-out-ui, cubic-bezier(0.23, 1, 0.32, 1)),
@@ -331,7 +332,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,400..700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -354,6 +355,7 @@
         --color-placeholder: var(--placeholder);
         --color-accent: var(--accent);
         --color-accent-fill: var(--accent-fill);
+        --color-accent-ink: var(--accent-ink);
         --color-secondary: var(--secondary);
         --color-secondary-fill: var(--secondary-fill);
         --color-secondary-hover: var(--secondary-hover);
@@ -372,7 +374,7 @@
         --color-shadow-ink: var(--shadow-ink);
         --color-shadow-accent: var(--shadow-accent);
         --color-shadow-secondary: var(--shadow-secondary);
-        --color-glass-highlight: #ffffff;
+        --color-glass-highlight: var(--heading);
         --color-photo: var(--photo);
         --color-rail: var(--rail);
         --color-tooltip: var(--tooltip);
@@ -382,41 +384,42 @@
         --color-info-dark: var(--info-dark);
         --color-info-surface-dark: var(--info-surface-dark);
         --color-viewer: #111a2e;
-        --color-viewer-foreground: #ffffff;
-        --color-viewer-overlay: #000000;
+        --color-viewer-foreground: var(--heading);
+        --color-viewer-overlay: var(--page);
         --color-viewer-border: rgb(255 255 255 / 15%);
         --color-viewer-control-border: rgb(255 255 255 / 25%);
-        --color-mask: #000000;
-        --font-heading: "Space Grotesk", sans-serif;
-        --font-body: "Inter", sans-serif;
+        --color-mask: var(--page);
+        --font-heading: "Martian Mono", ui-monospace, monospace;
+        --font-body: "Martian Mono", ui-monospace, monospace;
       }
 
       :root {
         color-scheme: light;
         scroll-behavior: smooth;
         --ease-out-ui: cubic-bezier(0.23, 1, 0.32, 1);
-        --page: #f4f7fa;
-        --section-tint: rgb(20 184 166 / 3%);
-        --section-tint-alt: rgb(245 158 11 / 2%);
-        --surface: #ffffff;
-        --raised: #f8fafc;
-        --line: #d7e0e8;
-        --line-strong: #d7e0e8;
-        --control-line: #64748b;
-        --text: #172033;
-        --copy: #334155;
-        --muted: #475569;
-        --heading: #0f172a;
-        --placeholder: #64748b;
-        --accent: #0f766e;
-        --accent-fill: #14b8a6;
-        --secondary: #b45309;
-        --secondary-fill: #f59e0b;
-        --secondary-hover: #d97706;
-        --button: #0b1220;
-        --focus: #0f766e;
-        --glow-teal: #5eead4;
-        --glow-amber: #fcd34d;
+        --page: oklch(14.5% 0.014 150);
+        --section-tint: oklch(16% 0.016 150);
+        --section-tint-alt: oklch(16.8% 0.018 150);
+        --surface: oklch(16% 0.016 150);
+        --raised: oklch(20.5% 0.022 150);
+        --line: oklch(27% 0.028 148);
+        --line-strong: oklch(38% 0.045 146);
+        --control-line: oklch(38% 0.045 146);
+        --text: oklch(82% 0.05 142);
+        --copy: oklch(82% 0.05 142);
+        --muted: oklch(64% 0.06 145);
+        --heading: oklch(94% 0.03 140);
+        --placeholder: oklch(64% 0.06 145);
+        --accent: oklch(87% 0.2 142);
+        --accent-fill: oklch(87% 0.2 142);
+        --accent-ink: oklch(14% 0.02 150);
+        --secondary: oklch(82% 0.05 142);
+        --secondary-fill: oklch(87% 0.2 142);
+        --secondary-hover: oklch(77% 0.19 142);
+        --button: oklch(14% 0.02 150);
+        --focus: oklch(87% 0.2 142);
+        --glow-teal: oklch(87% 0.2 142);
+        --glow-amber: oklch(87% 0.2 142);
         --dot-grid: rgb(71 85 105 / 10%);
         --error: #b91c1c;
         --success: #047857;
@@ -424,13 +427,13 @@
         --away-label: #b45309;
         --glass: rgb(255 255 255 / 60%);
         --glass-border: rgb(15 23 42 / 12%);
-        --shadow-soft: #0f172a;
-        --shadow-ink: #000000;
-        --shadow-accent: #14b8a6;
-        --shadow-secondary: #f59e0b;
+        --shadow-soft: oklch(14.5% 0.014 150);
+        --shadow-ink: oklch(12.5% 0.012 150);
+        --shadow-accent: oklch(87% 0.2 142);
+        --shadow-secondary: oklch(87% 0.2 142);
         --photo: #e2e8f0;
         --rail: #475569;
-        --tooltip: #f8fafc;
+        --tooltip: oklch(20.5% 0.022 150);
         --cue-border: rgb(71 85 105 / 55%);
         --info: #075985;
         --info-surface: #e0f2fe;
@@ -440,47 +443,7 @@
 
       .dark {
         color-scheme: dark;
-        --page: #0b1220;
-        --section-tint: rgb(20 184 166 / 1.2%);
-        --section-tint-alt: rgb(245 158 11 / 1.2%);
-        --surface: #111a2e;
-        --raised: #111a2e;
-        --line: rgb(255 255 255 / 10%);
-        --line-strong: rgb(255 255 255 / 15%);
-        --control-line: rgb(255 255 255 / 15%);
-        --text: #e2e8f0;
-        --copy: #cbd5e1;
-        --muted: #94a3b8;
-        --heading: #ffffff;
-        --placeholder: #94a3b8;
-        --accent: #14b8a6;
-        --accent-fill: #14b8a6;
-        --secondary: #f59e0b;
-        --secondary-fill: #f59e0b;
-        --secondary-hover: #d97706;
-        --button: #0b1220;
-        --focus: #f59e0b;
-        --glow-teal: #14b8a6;
-        --glow-amber: #f59e0b;
-        --dot-grid: rgb(148 163 184 / 25%);
-        --error: #fca5a5;
-        --success: #14b8a6;
-        --online-label: #2dd4bf;
-        --away-label: #fbbf24;
-        --glass: rgb(17 26 46 / 94%);
-        --glass-border: rgb(255 255 255 / 10%);
-        --shadow-soft: #0f172a;
-        --shadow-ink: #000000;
-        --shadow-accent: #14b8a6;
-        --shadow-secondary: #f59e0b;
-        --photo: #111a2e;
-        --rail: #a8b4c7;
-        --tooltip: #111a2e;
-        --cue-border: rgb(148 163 184 / 65%);
-        --info: #bae6fd;
-        --info-surface: #e0f2fe;
-        --info-dark: #bae6fd;
-        --info-surface-dark: #082f49;
+        --cursor-ring: var(--heading);
       }
 
       /* Clip the full-bleed section paint at the viewport so it cannot create horizontal scrolling. */
@@ -553,6 +516,7 @@
       h2,
       h3 {
         font-family: var(--font-heading);
+        text-wrap: balance;
       }
 
       .hero-role-line {
@@ -610,7 +574,7 @@
         .profile-photo-image {
           aspect-ratio: 1;
           height: auto;
-          width: min(14rem, calc(100vw - 3rem));
+          width: min(14rem, 100%);
         }
       }
 
@@ -720,7 +684,7 @@
       }
 
       .dark {
-        --cursor-ring: rgb(248 250 252 / 70%);
+        --cursor-ring: var(--heading);
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -771,46 +735,8 @@
         .hero-title-word[data-shimmer-text] {
           position: relative;
         }
-
         .hero-title-word[data-shimmer-text]::after {
-          background-image: linear-gradient(
-            100deg,
-            transparent 34%,
-            var(--color-surface) 48%,
-            var(--color-surface) 52%,
-            transparent 66%
-          );
-          background-clip: text;
-          content: attr(data-shimmer-text);
-          inset: 0;
-          opacity: 0;
-          pointer-events: none;
-          position: absolute;
-          transform: translateX(-110%);
-          white-space: nowrap;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .hero-title-word[data-shimmer-text].is-visible::after {
-          animation: hero-name-shimmer 600ms linear 500ms 1 both;
-        }
-
-        @keyframes hero-name-shimmer {
-          from {
-            opacity: 0;
-            transform: translateX(-110%);
-          }
-
-          14%,
-          86% {
-            opacity: 1;
-          }
-
-          to {
-            opacity: 0;
-            transform: translateX(110%);
-          }
+          content: none;
         }
       }
 
@@ -1091,7 +1017,7 @@
 
       @media (hover: hover) and (pointer: fine) {
         .project-image-action:hover > img {
-          transform: scale(1.04);
+          transform: none;
         }
 
         .project-image-action:hover .project-image-overlay {
@@ -1155,7 +1081,7 @@
         pointer-events: none;
         position: absolute;
         transform: translateX(-50%);
-        width: 100vw;
+        width: 100%;
         z-index: -1;
       }
 
@@ -1400,29 +1326,6 @@
         }
       }
 
-      .hero-scroll-cue {
-        border: 1px solid var(--color-cue-border);
-        border-radius: 9999px;
-        bottom: 1.25rem;
-        height: 1.75rem;
-        left: 50%;
-        position: absolute;
-        transform: translateX(-50%);
-        width: 1rem;
-      }
-
-      .hero-scroll-cue::after {
-        background: var(--color-accent);
-        border-radius: 50%;
-        content: "";
-        height: 0.25rem;
-        left: 50%;
-        position: absolute;
-        top: 0.35rem;
-        transform: translateX(-50%);
-        width: 0.25rem;
-      }
-
       @media (min-width: 48rem) and (max-width: 63.99rem) {
         .skills-track > [aria-roledescription="slide"] {
           width: 44%;
@@ -1486,9 +1389,73 @@
           display: none;
         }
       }
+
+      /* Terminal finish: square surfaces, one hue, and no decorative glow. */
+      :disabled,
+      [aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+      html,
+      body {
+        overflow-x: clip;
+      }
+
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      button,
+      a,
+      small,
+      label,
+      time,
+      figcaption {
+        font-family: var(--font-body);
+      }
+
+      .intro-overlay,
+      .portfolio-background,
+      .portfolio-glow,
+      .navbar-glow,
+      .status-glow,
+      .profile-photo-frame::after {
+        display: none !important;
+      }
+
+      .glass-panel,
+      .availability-panel {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      .project-card,
+      article,
+      dialog,
+      button,
+      nav,
+      .rounded-xl,
+      .rounded-2xl,
+      .rounded-lg,
+      .rounded-full {
+        border-radius: 0 !important;
+      }
+
+      .profile-photo-image {
+        border-radius: 0 !important;
+        background: var(--color-raised) !important;
+      }
+
+      .project-image-overlay {
+        background: var(--color-page);
+        border-top: 1px solid var(--color-line);
+        padding: 0.75rem;
+      }
     </style>
   </head>
-  <body class="min-h-screen overflow-x-hidden bg-page text-text antialiased">
+  <body class="min-h-screen overflow-x-clip bg-page text-text antialiased">
     <a
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-secondary-fill focus:px-4 focus:py-3 focus:font-semibold focus:text-button focus:outline-2 focus:outline-offset-2 focus:outline-focus"
       href="#main-content"
@@ -1508,7 +1475,7 @@
     <header class="intro-piece sticky top-0 z-40 px-4 pt-4 sm:px-6 lg:px-8" data-intro-step="navbar">
       <span class="navbar-glow" aria-hidden="true"></span>
       <nav
-      class="glass-panel relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-line px-4 py-3 shadow-lg shadow-shadow-soft/5 backdrop-blur-xl dark:border-line dark:shadow-shadow-ink/20 sm:px-6"
+      class="glass-panel relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-line px-4 py-3 backdrop-blur-xl dark:border-line sm:px-6"
         aria-label="Main navigation"
       >
         <a
@@ -1533,7 +1500,7 @@
           </button>
           <div
             id="nav-menu"
-            class="absolute left-4 right-4 top-full z-50 mt-2 hidden flex-col gap-1 rounded-2xl border border-line bg-raised p-3 shadow-xl dark:border-line dark:bg-surface md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+            class="absolute left-4 right-4 top-full z-50 mt-2 hidden flex-col gap-1 rounded-2xl border border-line bg-raised p-3 dark:border-line dark:bg-surface md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0"
           >
             <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#home" data-nav-link>Home</a>
             <a class="nav-link rounded-lg px-3 py-2 text-sm font-semibold text-text hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:text-text" href="#about" data-nav-link>About</a>
@@ -1602,17 +1569,14 @@
             class="text-balance text-5xl font-bold leading-[1.05] tracking-tight text-heading dark:text-heading sm:text-6xl lg:text-7xl"
             data-intro-step="headline"
           >
-            Hi, I’m <span class="text-accent">Your Name.</span>
+            Your Name · developer
           </h1>
           <p id="hero-tagline" class="intro-piece hero-role-line mt-6 max-w-xl text-balance text-xl font-semibold leading-relaxed text-text dark:text-text sm:text-2xl" data-intro-step="role">
-            I’m a developer who solves problems and builds useful digital experiences.
-          </p>
-          <p class="intro-piece mt-5 max-w-xl text-base leading-8 text-text dark:text-copy sm:text-lg" data-intro-step="role">
-            Add a short, verified introduction that explains your focus, the kinds of problems you solve, and the work you want to pursue.
+            <span class="text-accent">$</span> build useful digital experiences
           </p>
           <div class="intro-piece mt-8 flex flex-wrap items-center gap-4" data-intro-step="actions">
             <a
-              class="hero-cta inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-secondary-fill px-5 py-3 font-bold text-button shadow-lg shadow-shadow-secondary/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
+              class="hero-cta inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-secondary-fill px-5 py-3 font-bold text-button focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
               href="#contact"
             >
               Get in touch
@@ -1638,9 +1602,9 @@
 
         <div class="hero-visual order-1 flex flex-col items-center gap-5 md:order-2">
           <div class="profile-photo-frame is-ring-paused relative">
-            <div class="absolute -inset-4 rounded-[2rem] bg-glow-teal/15 blur-2xl" aria-hidden="true"></div>
+            <div class="absolute -inset-4 rounded-[2rem] bg-glow-teal/15" aria-hidden="true"></div>
             <div
-              class="intro-piece profile-photo-image relative flex h-56 w-56 items-center justify-center rounded-[2rem] border border-line bg-photo shadow-2xl shadow-shadow-soft/10 dark:border-line dark:shadow-shadow-ink/30 sm:h-72 sm:w-72"
+              class="intro-piece profile-photo-image relative flex h-56 w-56 items-center justify-center rounded-[2rem] border border-line bg-photo dark:border-line sm:h-72 sm:w-72"
               role="img"
               aria-label="AP monogram"
               data-intro-step="photo"
@@ -1652,7 +1616,7 @@
           <div class="availability-card-wrap">
             <span class="status-glow" aria-hidden="true"></span>
             <aside
-              class="intro-piece availability-panel glass-panel w-full rounded-2xl border p-4 shadow-lg shadow-shadow-soft/5 backdrop-blur-xl dark:shadow-shadow-ink/20 sm:p-5"
+              class="intro-piece availability-panel glass-panel w-full rounded-2xl border p-4 backdrop-blur-xl sm:p-5"
               aria-labelledby="availability-title"
               data-intro-step="status"
             >
@@ -1688,7 +1652,6 @@
             </aside>
           </div>
         </div>
-        <span class="intro-piece hero-scroll-cue" aria-hidden="true" data-intro-step="scroll-cue"></span>
       </section>
 
       <section
@@ -1697,7 +1660,6 @@
         aria-labelledby="about-title"
       >
         <div class="mb-10 max-w-2xl">
-          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">About</p>
           <h2 id="about-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
             Skills, education, and building projects.
           </h2>
@@ -1706,7 +1668,7 @@
           </p>
         </div>
 
-        <article class="max-w-4xl rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-8">
+        <article class="max-w-4xl rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-8">
           <p class="text-sm font-semibold text-accent">MY GOAL</p>
           <p class="mt-3 text-base leading-7 text-text dark:text-copy sm:text-lg">
             Replace this paragraph with your actual career goal. Keep it honest, specific, and free of unverified credentials or outcomes.
@@ -1721,7 +1683,6 @@
       >
         <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div class="max-w-2xl">
-            <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">What I work with</p>
             <h2 id="skills-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
               Skills &amp; technologies
             </h2>
@@ -1831,7 +1792,6 @@
         aria-labelledby="projects-title"
       >
         <div class="mb-8 max-w-2xl">
-          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Selected work</p>
           <h2 id="projects-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
             Three project placeholders.
           </h2>
@@ -1849,13 +1809,13 @@
 
         <div id="project-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <article
-            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
             data-category="web mobile"
           >
             <div data-project-gallery class="mb-5 grid grid-cols-[minmax(0,1fr)_minmax(5rem,0.48fr)] items-center gap-3 rounded-xl bg-raised p-3 dark:bg-page sm:gap-4">
               <figure data-project-screenshot data-screenshot-layout="desktop" class="min-w-0">
                 <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
-                  <span class="sr-only">View details: </span>
+                  <span class="sr-only">Open </span>
                   <img
                     class="aspect-video w-full rounded-lg object-contain"
                     src="images/template-placeholder.svg"
@@ -1871,7 +1831,7 @@
               </figure>
               <figure data-project-screenshot data-screenshot-layout="mobile" class="min-w-0">
                 <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
-                  <span class="sr-only">View details: </span>
+                  <span class="sr-only">Open </span>
                   <img
                     class="mx-auto h-52 max-w-full rounded-lg object-contain"
                     src="images/template-placeholder.svg"
@@ -1904,13 +1864,13 @@
           </article>
 
           <article
-            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
             data-category="mobile"
           >
             <div class="mb-5 rounded-xl bg-raised p-3 dark:bg-page">
               <figure data-project-screenshot data-screenshot-layout="mobile" class="min-w-0">
                 <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
-                  <span class="sr-only">View details: </span>
+                  <span class="sr-only">Open </span>
                   <img
                     class="mx-auto h-64 max-w-full rounded-lg object-contain"
                     src="images/template-placeholder.svg"
@@ -1941,13 +1901,13 @@
             </button>
           </article>
           <article
-            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-shadow-accent/5 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
             data-category="web"
           >
             <div class="mb-5 rounded-xl bg-raised p-3 dark:bg-page">
               <figure data-project-screenshot data-screenshot-layout="desktop" class="min-w-0">
                 <button class="project-image-action rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
-                  <span class="sr-only">View details: </span>
+                  <span class="sr-only">Open </span>
                   <img
                     class="aspect-video w-full rounded-lg object-contain"
                     src="images/template-placeholder.svg"
@@ -1986,7 +1946,6 @@
         aria-labelledby="experience-title"
       >
         <div class="mb-10 max-w-2xl">
-          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Education &amp; experience</p>
           <h2 id="experience-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
             Learning by doing.
           </h2>
@@ -1998,14 +1957,14 @@
         <ol class="relative ml-2 space-y-5 border-l-2 border-accent/30 pl-6 sm:ml-4 sm:pl-8">
           <li class="relative">
             <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
-            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+            <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">CURRENT · EDUCATION</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Your Education</h3>
             </article>
           </li>
           <li class="relative">
             <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
-            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+            <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">CURRENT · CAREER GOAL</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Career goal</h3>
               <p class="mt-2 leading-7 text-text dark:text-copy">
@@ -2015,7 +1974,7 @@
           </li>
           <li class="relative">
             <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
-            <article class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-7">
+            <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">PLANNED · LEARNING GOALS</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Learning goals</h3>
               <p class="mt-2 leading-7 text-text dark:text-copy">
@@ -2032,7 +1991,6 @@
         aria-labelledby="contact-title"
       >
         <div class="mb-10 max-w-2xl">
-          <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-accent">Contact</p>
           <h2 id="contact-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
             Add your approved contact section.
           </h2>
@@ -2042,7 +2000,7 @@
         </div>
 
         <div class="mx-auto max-w-2xl">
-          <aside class="rounded-2xl border border-line bg-surface p-6 shadow-sm dark:border-line dark:bg-surface sm:p-8" aria-labelledby="connect-title">
+          <aside class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-8" aria-labelledby="connect-title">
             <h3 id="connect-title" class="text-xl font-bold text-heading dark:text-heading">Find me online</h3>
             <p class="mt-3 leading-7 text-text dark:text-copy">
               Replace this area with links you have deliberately chosen to publish.
@@ -2057,14 +2015,14 @@
 
     <dialog
       id="project-modal"
-      class="glass-panel m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-4xl overflow-y-auto overscroll-contain rounded-2xl border border-line p-0 text-text shadow-2xl shadow-shadow-ink/40 backdrop-blur-xl dark:border-line dark:text-text"
+      class="glass-panel m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-4xl overflow-y-auto overscroll-contain rounded-2xl border border-line p-0 text-text backdrop-blur-xl dark:border-line dark:text-text"
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
       <div class="p-5 sm:p-8">
         <div class="flex items-start justify-between gap-5">
           <div class="min-w-0">
-            <p class="text-sm font-bold uppercase tracking-[0.15em] text-accent">Project details</p>
+            <p class="text-sm font-semibold text-accent">Project details</p>
             <h2 id="modal-title" class="mt-2 text-2xl font-bold tracking-tight text-heading dark:text-heading sm:text-3xl"></h2>
           </div>
           <button id="modal-close" class="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-xl border border-control-line text-text hover:border-secondary hover:text-heading focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:text-text dark:hover:text-heading" type="button" aria-label="Close project details" autofocus>
@@ -2074,20 +2032,20 @@
           </button>
         </div>
         <section class="mt-5" aria-labelledby="modal-overview-heading">
-          <h3 id="modal-overview-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Overview</h3>
+          <h3 id="modal-overview-heading" class="text-sm font-semibold text-muted dark:text-muted">Overview</h3>
           <p id="modal-description" class="mt-2 max-w-prose text-base leading-7 text-text dark:text-text"></p>
         </section>
         <section id="modal-gallery" class="mt-7" aria-labelledby="modal-screenshots-heading" hidden>
-          <h3 id="modal-screenshots-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Screenshots</h3>
+          <h3 id="modal-screenshots-heading" class="text-sm font-semibold text-muted dark:text-muted">Screenshots</h3>
           <div id="modal-screenshots" class="mt-3 grid grid-cols-1 items-start gap-4 sm:grid-cols-[minmax(0,2fr)_minmax(9rem,1fr)]"></div>
         </section>
         <div class="mt-7 grid gap-6 border-t border-line pt-5 dark:border-line sm:grid-cols-2">
           <section aria-labelledby="modal-categories-heading">
-            <h3 id="modal-categories-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Categories</h3>
+            <h3 id="modal-categories-heading" class="text-sm font-semibold text-muted dark:text-muted">Categories</h3>
             <ul id="modal-categories" class="mt-3 flex flex-wrap gap-2"></ul>
           </section>
           <section aria-labelledby="modal-tools-heading">
-            <h3 id="modal-tools-heading" class="text-sm font-bold uppercase tracking-[0.12em] text-muted dark:text-muted">Technologies</h3>
+            <h3 id="modal-tools-heading" class="text-sm font-semibold text-muted dark:text-muted">Technologies</h3>
             <ul id="modal-tools" class="mt-3 flex flex-wrap gap-2"></ul>
           </section>
         </div>
@@ -2111,7 +2069,7 @@
         </svg>
       </button>
       <h2 id="screenshot-viewer-title" class="sr-only"></h2>
-      <img id="screenshot-viewer-image" class="max-h-[calc(100dvh-6rem)] max-w-full rounded-lg object-contain" alt="" />
+      <img id="screenshot-viewer-image" class="max-h-[calc(100dvh-6rem)] max-w-full rounded-lg object-contain" src="images/template-placeholder.svg" alt="" />
       <p id="screenshot-viewer-caption" class="mt-3 text-center text-sm font-semibold text-viewer-foreground"></p>
     </dialog>
 
