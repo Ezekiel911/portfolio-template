@@ -1549,12 +1549,12 @@
     <!-- The existing section observer also updates these native fragment links. -->
     <nav class="intro-piece side-rail side-rail--index flex-col gap-1" aria-label="Section index" data-intro-step="rails">
       <span class="side-rail-marker" aria-hidden="true"></span>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#home" data-nav-link data-section-index-link><span class="text-secondary">01</span>Home</a>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#about" data-nav-link data-section-index-link><span class="text-secondary">02</span>About</a>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#skills" data-nav-link data-section-index-link><span class="text-secondary">03</span>Skills</a>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#projects" data-nav-link data-section-index-link><span class="text-secondary">04</span>Projects</a>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#experience" data-nav-link data-section-index-link><span class="text-secondary">05</span>Journey</a>
-      <a class="side-rail-link inline-flex min-h-11 items-center gap-2 rounded-lg px-2 hover:text-accent" href="#contact" data-nav-link data-section-index-link><span class="text-secondary">06</span>Contact</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#home" data-nav-link data-section-index-link>Home</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#about" data-nav-link data-section-index-link>About</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#skills" data-nav-link data-section-index-link>Skills</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#projects" data-nav-link data-section-index-link>Projects</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#experience" data-nav-link data-section-index-link>Journey</a>
+      <a class="side-rail-link inline-flex min-h-11 items-center rounded-lg px-2 hover:text-accent" href="#contact" data-nav-link data-section-index-link>Contact</a>
     </nav>
 
     <main id="main-content" tabindex="-1">
@@ -1592,12 +1592,6 @@
             </a>
           </div>
 
-          <!-- Compact proof chips use only verified project and tool facts. -->
-          <ul class="intro-piece mt-5 flex flex-wrap gap-1.5 text-xs font-semibold text-copy" aria-label="Projects and tools" data-intro-step="actions">
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">3 projects</li>
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Add verified stack</li>
-            <li class="rounded-full border border-line-strong bg-surface px-2 py-1">Add verified tools</li>
-          </ul>
         </div>
 
         <div class="hero-visual order-1 flex flex-col items-center gap-5 md:order-2">
@@ -1613,44 +1607,6 @@
             </div>
           </div>
 
-          <div class="availability-card-wrap">
-            <span class="status-glow" aria-hidden="true"></span>
-            <aside
-              class="intro-piece availability-panel glass-panel w-full rounded-2xl border p-4 backdrop-blur-xl sm:p-5"
-              aria-labelledby="availability-title"
-              data-intro-step="status"
-            >
-              <div class="availability-header flex items-center justify-between gap-3">
-                <h2 id="availability-title" class="font-heading text-base font-semibold text-heading dark:text-heading">
-                  Template status
-                </h2>
-                <span id="availability-badge" class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold" data-state="away">
-                  <span id="availability-dot" class="availability-dot inline-flex h-2.5 w-2.5 rounded-full" data-state="away" aria-hidden="true"></span>
-                  <span id="availability-state">Unconfigured</span>
-                </span>
-              </div>
-              <div class="availability-copy mt-3">
-                <p id="status-message" class="text-sm font-medium leading-6 text-text dark:text-text" role="status" aria-live="polite" aria-atomic="true">Add approved availability details.</p>
-                <p id="status-relative" class="mt-1 min-h-6 text-sm leading-6 text-muted dark:text-copy">Not a live availability claim.</p>
-              </div>
-              <div class="mt-4" aria-hidden="true">
-                <div id="availability-track" class="availability-track rounded-full" data-off-today="true">
-                  <span class="availability-window"></span>
-                  <span id="availability-now" class="availability-now"></span>
-                </div>
-              </div>
-              <p id="availability-note" class="availability-note pt-1 text-xs font-medium text-muted dark:text-copy">Customize or remove this card.</p>
-              <div class="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3 text-xs text-muted dark:border-line dark:text-copy">
-                <span id="availability-zone">Template zone</span>
-                <time id="availability-time" class="shrink-0 font-mono">--:--</time>
-              </div>
-              <noscript>
-                <p class="mt-4 border-t border-line pt-4 text-sm text-muted dark:border-line dark:text-copy">
-                  Live availability requires JavaScript.
-                </p>
-              </noscript>
-            </aside>
-          </div>
         </div>
       </section>
 
@@ -1668,8 +1624,7 @@
           </p>
         </div>
 
-        <article class="max-w-4xl rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-8">
-          <p class="text-sm font-semibold text-accent">MY GOAL</p>
+        <article class="max-w-4xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-8">
           <p class="mt-3 text-base leading-7 text-text dark:text-copy sm:text-lg">
             Replace this paragraph with your actual career goal. Keep it honest, specific, and free of unverified credentials or outcomes.
           </p>
@@ -1793,23 +1748,23 @@
       >
         <div class="mb-8 max-w-2xl">
           <h2 id="projects-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
-            Three project placeholders.
+            Selected work
           </h2>
           <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
-            Replace these placeholders with approved web or mobile projects.
+            Show the strongest approved project first, then keep the complete index filterable.
           </p>
         </div>
 
         <div class="mb-7 flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
-          <button class="project-filter rounded-full border border-accent bg-accent-fill px-4 py-2 text-sm font-bold text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-filter-category="all" aria-pressed="true">All</button>
-          <button class="project-filter rounded-full border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="web" aria-pressed="false">Web</button>
-          <button class="project-filter rounded-full border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="mobile" aria-pressed="false">Mobile</button>
+          <button class="project-filter border border-accent bg-accent-fill px-4 py-2 text-sm font-bold text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-filter-category="all" aria-pressed="true">All</button>
+          <button class="project-filter border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="web" aria-pressed="false">Web</button>
+          <button class="project-filter border border-control-line bg-surface px-4 py-2 text-sm font-semibold text-text hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus dark:border-control-line dark:bg-surface dark:text-text" type="button" data-filter-category="mobile" aria-pressed="false">Mobile</button>
         </div>
         <p id="project-filter-status" class="sr-only" aria-live="polite"></p>
 
         <div id="project-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <article
-            class="project-card flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-accent/40 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7"
+            class="project-card flex h-full flex-col border border-line bg-surface p-6 transition-colors duration-200 hover:border-accent/60 motion-reduce:transform-none dark:border-line dark:bg-surface sm:p-7 xl:col-span-2"
             data-category="web mobile"
           >
             <div data-project-gallery class="mb-5 grid grid-cols-[minmax(0,1fr)_minmax(5rem,0.48fr)] items-center gap-3 rounded-xl bg-raised p-3 dark:bg-page sm:gap-4">
@@ -1847,16 +1802,16 @@
               </figure>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="rounded-full bg-info-surface px-3 py-1 text-xs font-bold text-info dark:bg-info-surface-dark dark:text-info-dark">Web</span>
-              <span class="rounded-full bg-secondary-fill/20 px-3 py-1 text-xs font-bold text-secondary dark:text-secondary">Mobile</span>
+              <span class="border border-info/30 px-2 py-1 text-xs font-bold text-info dark:border-info-dark/30 dark:text-info-dark">Web</span>
+              <span class="border border-secondary/30 px-2 py-1 text-xs font-bold text-secondary dark:border-secondary/30 dark:text-secondary">Mobile</span>
             </div>
             <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">Project One</h3>
             <p class="mt-2 leading-7 text-text dark:text-copy">
               Replace this description with a two or three sentence overview of a real project, the problem it addressed, and the role you played.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project One tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -1886,15 +1841,15 @@
               </figure>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="rounded-full bg-secondary-fill/20 px-3 py-1 text-xs font-bold text-secondary dark:text-secondary">Mobile</span>
+              <span class="border border-secondary/30 px-2 py-1 text-xs font-bold text-secondary dark:border-secondary/30 dark:text-secondary">Mobile</span>
             </div>
             <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">Project Two</h3>
             <p class="mt-2 leading-7 text-text dark:text-copy">
               Replace this description with a concise explanation of a real project and the technologies used to build it.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project Two tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -1923,15 +1878,15 @@
               </figure>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="rounded-full bg-info-surface px-3 py-1 text-xs font-bold text-info dark:bg-info-surface-dark dark:text-info-dark">Web</span>
+              <span class="border border-info/30 px-2 py-1 text-xs font-bold text-info dark:border-info-dark/30 dark:text-info-dark">Web</span>
             </div>
             <h3 class="mt-4 text-xl font-bold text-heading dark:text-heading">Project Three</h3>
             <p class="mt-2 leading-7 text-text dark:text-copy">
               Replace this description with a real responsive project, including what it demonstrates and what you built.
             </p>
             <ul class="mt-5 flex flex-wrap gap-2" aria-label="Project Three tools">
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
-              <li class="rounded-full border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add technology</li>
+              <li class="border border-line bg-raised px-3 py-1.5 text-sm font-semibold text-text dark:border-line dark:bg-glass-highlight/5 dark:text-text">Add tool</li>
             </ul>
             <button class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent-fill hover:text-button focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" type="button" data-project-details aria-haspopup="dialog" aria-controls="project-modal">
               View details
@@ -1947,7 +1902,7 @@
       >
         <div class="mb-10 max-w-2xl">
           <h2 id="experience-title" class="text-3xl font-bold tracking-tight text-heading dark:text-heading sm:text-4xl">
-            Learning by doing.
+            Journey
           </h2>
           <p class="mt-4 text-base leading-7 text-text dark:text-copy sm:text-lg">
             Add verified education, experience, career goals, and learning goals.
@@ -1956,14 +1911,14 @@
 
         <ol class="relative ml-2 space-y-5 border-l-2 border-accent/30 pl-6 sm:ml-4 sm:pl-8">
           <li class="relative">
-            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 border-2 border-page bg-accent-fill dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
             <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">CURRENT · EDUCATION</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Your Education</h3>
             </article>
           </li>
           <li class="relative">
-            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 border-2 border-page bg-accent-fill dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
             <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">CURRENT · CAREER GOAL</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Career goal</h3>
@@ -1973,7 +1928,7 @@
             </article>
           </li>
           <li class="relative">
-            <span class="absolute -left-[2.13rem] top-6 h-3 w-3 rounded-full border-2 border-page bg-accent-fill ring-4 ring-accent-fill/15 dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
+            <span class="absolute -left-[2.13rem] top-3 h-3 w-3 border-2 border-page bg-accent-fill dark:border-page sm:-left-[2.63rem]" aria-hidden="true"></span>
             <article class="rounded-2xl border border-line bg-surface p-6 dark:border-line dark:bg-surface sm:p-7">
               <p class="text-sm font-semibold text-accent">PLANNED · LEARNING GOALS</p>
               <h3 class="mt-3 text-xl font-bold text-heading dark:text-heading">Learning goals</h3>
