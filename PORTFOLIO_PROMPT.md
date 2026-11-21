@@ -6,6 +6,8 @@ Use this prompt when customizing or rebuilding the portfolio template:
 >
 > Replace every "Your Name", "YN", "Project One", "Project Two", "Project Three", placeholder description, and `#` link with the user's explicitly approved information. Do not infer age, location, education, employers, certificates, metrics, testimonials, repositories, or project outcomes.
 >
+> Never add or publish the user's last name unless they explicitly provide it and approve it for public use. A first name or neutral monogram is the default.
+>
 > Use no direct email, phone number, postal address, private account, personal photo, biometric image, government ID, or hidden metadata. Keep the template usable before customization: neutral identity, neutral project imagery, visible labels for placeholders, and no broken controls.
 >
 > Produce a responsive Experience-mode portfolio with strong hierarchy, real approved imagery, restrained motion, visible keyboard focus, contrast, light/dark themes, reduced-motion support, and a no-JavaScript-safe baseline. Avoid decorative gradients, generic icon cards, fake dashboards, invented claims, and social-only filler.

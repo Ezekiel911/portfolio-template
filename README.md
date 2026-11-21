@@ -2,6 +2,8 @@
 
 A responsive, accessible portfolio starter that contains no personal identity, contact details, or personal project evidence. Replace the clearly labeled placeholders with only the information you approve for public display.
 
+The template does not publish a last name. Add a surname only with explicit approval.
+
 ## Preview
 
 Open `index.html` directly or serve the repository locally:
